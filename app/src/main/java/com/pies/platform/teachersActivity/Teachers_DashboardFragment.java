@@ -123,25 +123,25 @@ prepareMovieData();
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                mFirebaseUser = firebaseAuth.getCurrentUser();
-                if (mFirebaseUser == null) {
-                    // User is signed in
+        @Override
+        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            mFirebaseUser = firebaseAuth.getCurrentUser();
+            if (mFirebaseUser == null) {
+                // User is signed in
 //                    Log.d(TAG, "onAuthStateChanged:signed_in:" + mFirebaseUser.getUid());
-                    startActivity(new Intent(getActivity(), Login.class));
+                startActivity(new Intent(getActivity(), Login.class));
+            }
+            else{
+
+                if(mFirebaseUser.getEmail()!= null){
+                    String n = mFirebaseUser.getEmail();
+                    tEmail.setText(n);
                 }
-                else{
 
-                    if(mFirebaseUser.getEmail()!= null){
-                        String n = mFirebaseUser.getEmail();
-                        tEmail.setText(n);
-                    }
+                Toast.makeText(getActivity(), mFirebaseUser.getUid().toString(), Toast.LENGTH_SHORT).show();
 
-                    Toast.makeText(getActivity(), mFirebaseUser.getUid().toString(), Toast.LENGTH_SHORT).show();
-
-                }
-            }};
+            }
+        }};
     }
 
 
