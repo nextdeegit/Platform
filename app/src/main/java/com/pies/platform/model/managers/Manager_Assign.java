@@ -1,51 +1,37 @@
-package com.pies.platform.teachersActivity;
-        import com.firebase.ui.database.FirebaseRecyclerAdapter;
-        import com.google.firebase.database.Query;
-        import com.pies.platform.R;
+package com.pies.platform.model.managers;
 
-        import android.app.Fragment;
-        import android.app.ProgressDialog;
-        import android.content.Intent;
-        import android.support.annotation.NonNull;
-        import android.support.annotation.Nullable;
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
-        import android.os.Bundle;
-        import android.support.v7.widget.DefaultItemAnimator;
-        import android.support.v7.widget.GridLayoutManager;
-        import android.support.v7.widget.LinearLayoutManager;
-        import android.support.v7.widget.RecyclerView;
-        import android.view.LayoutInflater;
-        import android.view.View;
-        import android.view.ViewGroup;
-        import android.widget.TextView;
-        import android.widget.Toast;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.pies.platform.Login;
+import com.pies.platform.R;
+import com.pies.platform.model.managers.model.managers_data;
+import com.pies.platform.teachersActivity.model.teacher_data;
+import com.pies.platform.teachersActivity.model.teacher_item;
+import com.pies.platform.viewHolder.ManagerListViewHolder;
+import com.pies.platform.viewHolder.TeacherListViewHolder;
 
-        import com.google.firebase.auth.FirebaseAuth;
-        import com.google.firebase.auth.FirebaseUser;
-        import com.google.firebase.database.DataSnapshot;
-        import com.google.firebase.database.DatabaseError;
-        import com.google.firebase.database.DatabaseReference;
-        import com.google.firebase.database.FirebaseDatabase;
-        import com.google.firebase.database.ValueEventListener;
-        import com.pies.platform.Login;
-        import com.pies.platform.R;
-        import com.pies.platform.admin.Admin_dashboard;
-        import com.pies.platform.admin.Create_Account;
-        import com.pies.platform.admin.model.AdminAdapter;
-        import com.pies.platform.admin.model.Admin_Item;
-        import com.pies.platform.model_users.Users;
-        import com.pies.platform.teachersActivity.model.Teacher_Adapter;
-        import com.pies.platform.teachersActivity.model.teacher_data;
-        import com.pies.platform.teachersActivity.model.teacher_item;
-        import com.pies.platform.viewHolder.TeacherListViewHolder;
-
-        import java.util.ArrayList;
-        import java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class AssignmentFragment extends android.support.v4.app.Fragment {
+public class Manager_Assign extends android.support.v4.app.Fragment {
     private List<teacher_item> movieList = new ArrayList<>();
 
     FirebaseAuth mFirebaseAuth;
@@ -64,19 +50,19 @@ public class AssignmentFragment extends android.support.v4.app.Fragment {
     private DatabaseReference mDatabase;
     // [END define_database_reference]
 
-    private FirebaseRecyclerAdapter<teacher_data, TeacherListViewHolder> mAdapter;
+    private FirebaseRecyclerAdapter<managers_data, ManagerListViewHolder> mAdapter;
     private RecyclerView mRecycler;
     private LinearLayoutManager mManager;
 
     ProgressDialog progressDialog;
 
-    public AssignmentFragment() {
+    public Manager_Assign() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_assignment, container, false);
+        View root = inflater.inflate(R.layout.fragment_managers_list, container, false);
 
 
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -84,7 +70,7 @@ public class AssignmentFragment extends android.support.v4.app.Fragment {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         // [END create_database_reference]
 
-        mRecycler = (RecyclerView) root.findViewById(R.id.messages_list);
+        mRecycler = (RecyclerView) root.findViewById(R.id.manager_list);
         mRecycler.setHasFixedSize(true);
 
         return root;
@@ -123,10 +109,10 @@ public class AssignmentFragment extends android.support.v4.app.Fragment {
 
         // Set up FirebaseRecyclerAdapter with the Query
         Query postsQuery = getQuery(mDatabase);
-        mAdapter = new FirebaseRecyclerAdapter<teacher_data, TeacherListViewHolder>(teacher_data.class, R.layout.teachers_list,
-                TeacherListViewHolder.class, postsQuery) {
+        mAdapter = new FirebaseRecyclerAdapter<managers_data, ManagerListViewHolder>(managers_data.class, R.layout.manager_list,
+                ManagerListViewHolder.class, postsQuery) {
             @Override
-            protected void populateViewHolder(final TeacherListViewHolder viewHolder, final teacher_data model, final int position) {
+            protected void populateViewHolder(final ManagerListViewHolder viewHolder, final managers_data model2, final int position) {
                 final DatabaseReference postRef = getRef(position);
 
                 // Set click listener for the whole post view
@@ -140,7 +126,7 @@ public class AssignmentFragment extends android.support.v4.app.Fragment {
                         startActivity(intent);*/
                     }
                 });
-                viewHolder.bindToPost(model, new View.OnClickListener() {
+                viewHolder.bindToPost1(model2, new View.OnClickListener() {
                     @Override
                     public void onClick(View starView) {
 
@@ -181,9 +167,9 @@ public class AssignmentFragment extends android.support.v4.app.Fragment {
         // [START recent_posts_query]
         // Last 100 posts, these are automatically the 100 most recent
         // due to sorting by push() keys
-       // Query recentPostsQuery = databaseReference.child("Teachers-Added").child("SPUE1xO0JbTaXUqM80xPmszCUIK2");
+        // Query recentPostsQuery = databaseReference.child("Teachers-Added").child("SPUE1xO0JbTaXUqM80xPmszCUIK2");
         // [END recent_posts_query]
-;
-        return databaseReference.child("all-user");
+        ;
+        return databaseReference.child("Teachers-Added");
     }
 }

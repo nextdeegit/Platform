@@ -18,7 +18,7 @@ public class TeacherListViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
 
         tname = (TextView) itemView.findViewById(R.id.teacher_name_list);
-       temail= (TextView) itemView.findViewById(R.id.teacher_name_list);
+       temail= (TextView) itemView.findViewById(R.id.teacher_email_list);
      thumnial = (ImageView) itemView.findViewById(R.id.teacher_image_list);
         region = (TextView) itemView.findViewById(R.id.teacher_region);
 

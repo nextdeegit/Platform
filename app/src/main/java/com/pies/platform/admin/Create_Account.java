@@ -272,10 +272,10 @@ private Spinner spinner ,spinner1;
         Map<String, Object> postValues = teacher.toMap1();
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/Teachers-Added/" + key + "/" + uid, postValues);
+        childUpdates.put("/Teachers-Added/" + key , postValues);
         childUpdates.put("/Teachers-Profile/" + uid + "/" , postValues);
         childUpdates.put("/auth-user/" + uid ,postValues);
-        childUpdates.put("/all-user/" + key + "/" + uid , postValues);
+        childUpdates.put("/all-user/" + key , postValues);
         mDatabase.updateChildren(childUpdates).addOnCompleteListener( new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -315,9 +315,9 @@ private Spinner spinner ,spinner1;
         Map<String, Object> postValues = teacher.toMap1();
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/Managers-Added/" + key + uid +"/", postValues);
+        childUpdates.put("/Managers-Added/" + key , postValues);
         childUpdates.put("/Managers-Profile/" + uid + "/" , postValues);
-        childUpdates.put("/all-user/" + key + "/"+ uid, postValues);
+        childUpdates.put("/all-user/" + key , postValues);
         mDatabase.updateChildren(childUpdates).addOnCompleteListener( new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
@@ -356,9 +356,9 @@ private Spinner spinner ,spinner1;
         Map<String, Object> postValues = admin.toAdmin();
 
         Map<String, Object> childUpdates = new HashMap<>();
-       childUpdates.put("/admin-Added/" + key + "/" + u, postValues);
+       childUpdates.put("/admin-Added/" + key , postValues);
         childUpdates.put("/admin-Profile/" + u , postValues);
-        childUpdates.put("/all-user/" + key + "/" + u  , postValues);
+        childUpdates.put("/all-user/" + key  , postValues);
         childUpdates.put("/auth-user/" + u ,postValues);
         mDatabase.updateChildren(childUpdates).addOnCompleteListener( new OnCompleteListener<Void>() {
             @Override

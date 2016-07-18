@@ -3,17 +3,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.pies.platform.teachersActivity.AssignmentFragment"
-    >
+    tools:context="com.pies.platform.model.managers.Manager_Assign"
+  >
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/messages_list"
+        android:id="@+id/manager_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
         android:clipToPadding="false"
         android:padding="5dp"
         android:scrollbars="vertical"
-        tools:listitem="@layout/teachers_list" />
+        tools:listitem="@layout/manager_list" />
 
 </RelativeLayout>

@@ -16,11 +16,12 @@ import android.view.View;
 import com.pies.platform.BaseActivity;
 import com.pies.platform.R;
 import com.pies.platform.fragment.Teachers_list;
+import com.pies.platform.model.managers.Manager_Assign;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Assignment extends BaseActivity {
+public class Assignment extends AppCompatActivity {
     private static final String TAG = "MainActivity";
 
     private FragmentPagerAdapter mPagerAdapter;
@@ -57,8 +58,8 @@ public class Assignment extends BaseActivity {
     // Add Fragments to Tabs
     private void setupViewPager(ViewPager viewPager) {
         Adapter adapter = new Adapter(getSupportFragmentManager());
-        adapter.addFragment(new AssignmentFragment(), "List");
-        adapter.addFragment(new AssignmentFragment(), "Tile");
+        adapter.addFragment(new AssignmentFragment(), "Teachers");
+        adapter.addFragment(new Manager_Assign(), "Managers");
 
         viewPager.setAdapter(adapter);
     }
