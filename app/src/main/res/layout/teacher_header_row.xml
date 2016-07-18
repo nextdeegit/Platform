@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp">
+
+        <RelativeLayout
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:scaleType="fitCenter"
+                android:id="@+id/thumdicon1"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:src="@drawable/ic_dns_black_24dp"/>
+            <TextView
+                android:layout_centerInParent="true"
+
+                android:textColor="#212121"
+                android:layout_marginBottom="7dp"
+                android:layout_below="@+id/thumdicon1"
+                android:id="@+id/titleName1"
+                android:textSize="15sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add a Teacher"/>
+            <TextView
+                android:visibility="gone"
+                android:textColor="@color/colorAccent"
+                android:id="@+id/number1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="12"
+
+                android:layout_below="@+id/titleName1"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                />
+            <TextView
+                android:textColor="#727272"
+                android:visibility="gone"
+                android:id="@+id/description1"
+                android:layout_below="@+id/titleName1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Register a new teacher using their credential"/>
+        </RelativeLayout>
+
+
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

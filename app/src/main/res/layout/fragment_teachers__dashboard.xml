@@ -1,0 +1,24 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".teachersActivity.Teachers_DashboardFragment"
+    tools:showIn="@layout/activity_teachers__dashboard">
+
+    <include
+        android:id="@+id/layer1"
+        layout="@layout/include_teacher_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/layer1"
+        android:layout_marginTop="10dp"
+        android:id="@+id/recycler_teacher"
+        android:padding="3dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:listitem="@layout/teacher_header_row"
+        >
+    </android.support.v7.widget.RecyclerView>
+</RelativeLayout>

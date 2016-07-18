@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    >
+
+    <RelativeLayout
+        android:padding="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:scaleType="fitXY"
+            android:id="@+id/thumdicon1"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/ic_view_list_black_24dp"/>
+        <TextView
+
+            android:textColor="#212121"
+            android:layout_marginTop="15dp"
+            android:layout_toRightOf="@+id/thumdicon1"
+            android:id="@+id/titleName1"
+            android:textSize="26sp"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add a Teacher"/>
+        <TextView
+            android:textColor="@color/colorAccent"
+            android:id="@+id/number1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="12"
+
+            android:layout_alignTop="@+id/titleName1"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+        <TextView
+            android:textColor="@color/colorAccent"
+            android:layout_toRightOf="@+id/thumdicon1"
+            android:id="@+id/description1"
+            android:layout_below="@+id/titleName1"
+            android:textSize="15sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Register a new teacher using their credential"/>
+    </RelativeLayout>
+
+
+</android.support.v7.widget.CardView>

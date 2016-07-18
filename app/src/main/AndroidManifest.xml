@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.pies.platform">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name=".Home"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Login"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".teachersActivity.Teachers_Dashboard"
+            android:label="@string/title_activity_teachers__dashboard"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".admin.Admin_dashboard"
+            android:label="@string/title_activity_admin_dashboard"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".admin.Create_Account"
+            android:label="@string/title_activity_create__account"
+            android:parentActivityName=".admin.Admin_dashboard"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pies.platform.admin.Admin_dashboard" />
+        </activity>
+        <activity
+            android:name=".Verification"
+            android:label="@string/title_activity_verification"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".teachersActivity.Assignment"
+            android:label="@string/title_activity_assignment"
+            android:parentActivityName=".admin.Admin_dashboard"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pies.platform.admin.Admin_dashboard" />
+        </activity>
+    </application>
+
+</manifest>

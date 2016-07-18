@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layer1"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+    <RelativeLayout
+        android:layout_marginBottom="7dp"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/admin_image"
+            android:layout_width="70dp"
+            android:layout_gravity="start"
+            android:layout_margin="7dp"
+            android:scaleType="fitXY"
+            android:layout_height="70dp"
+            android:src="@drawable/ic_account_circle_black_24dp"/>
+        <TextView
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:layout_height="wrap_content"
+            android:textSize="30sp"
+            android:textColor="#fff"
+            android:text="A"
+            android:layout_marginLeft="25dp"
+            android:layout_marginStart="25dp"
+            android:layout_alignBottom="@+id/admin_email"
+            android:layout_alignLeft="@+id/admin_image"
+            android:layout_alignStart="@+id/admin_image" />
+        <TextView
+            android:textStyle="bold"
+            android:textColor="#212121"
+            android:textSize="20sp"
+            android:layout_marginTop="17dp"
+            android:layout_toRightOf="@+id/admin_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nsikak Thompson"
+            android:id="@+id/admin_name"/>
+        <TextView
+            android:layout_toRightOf="@+id/admin_image"
+            android:textSize="13sp"
+            android:layout_marginTop="1dp"
+            android:layout_below="@+id/admin_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nsikak Thompson"
+            android:id="@+id/admin_email"/>
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>
