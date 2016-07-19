@@ -113,4 +113,5 @@
     </string>
     <string name="title_activity_assignment">Assignment</string>
     <string name="title_activity_test">Test</string>
+    <string name="title_activity_works__detail">Works_Detail</string>
 </resources>

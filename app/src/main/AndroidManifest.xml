@@ -46,14 +46,23 @@
             android:label="@string/title_activity_verification"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-        android:name=".teachersActivity.Assignment"
-        android:label="@string/title_activity_assignment"
-        android:parentActivityName=".admin.Admin_dashboard"
-        android:theme="@style/AppTheme.NoActionBar">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.pies.platform.admin.Admin_dashboard" />
-    </activity>
+            android:name=".teachersActivity.Assignment"
+            android:label="@string/title_activity_assignment"
+            android:parentActivityName=".admin.Admin_dashboard"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pies.platform.admin.Admin_dashboard" />
+        </activity>
+        <activity
+            android:name=".Works_Detail"
+            android:label="@string/title_activity_works__detail"
+            android:parentActivityName=".teachersActivity.Assignment"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pies.platform.teachersActivity.Assignment" />
+        </activity>
     </application>
 
 </manifest>

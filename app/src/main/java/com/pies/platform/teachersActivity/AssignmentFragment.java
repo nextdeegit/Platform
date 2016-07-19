@@ -29,6 +29,7 @@ package com.pies.platform.teachersActivity;
         import com.google.firebase.database.ValueEventListener;
         import com.pies.platform.Login;
         import com.pies.platform.R;
+        import com.pies.platform.Works_Detail;
         import com.pies.platform.admin.Admin_dashboard;
         import com.pies.platform.admin.Create_Account;
         import com.pies.platform.admin.model.AdminAdapter;
@@ -134,10 +135,10 @@ public class AssignmentFragment extends android.support.v4.app.Fragment {
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                       /* // Launch PostDetailActivity
-                        Intent intent = new Intent(getActivity(), PostDetailActivity.class);
-                        intent.putExtra(PostDetailActivity.EXTRA_POST_KEY, postKey);
-                        startActivity(intent);*/
+                        // Launch PostDetailActivity
+                        Intent intent = new Intent(getActivity(), Works_Detail.class);
+                       // intent.putExtra(PostDetailActivity.EXTRA_POST_KEY, postKey);
+                        startActivity(intent);
                     }
                 });
                 viewHolder.bindToPost(model, new View.OnClickListener() {

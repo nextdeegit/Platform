@@ -69,12 +69,12 @@ public class Login extends AppCompatActivity {
                 progressDialog.show();
                 String email = emailEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
-                if(email.isEmpty() ){
+                if(email.isEmpty() || password.isEmpty() ){
                     emailEditText.setError("Enter email address");
-                }
-                else if(password.isEmpty()){
-                    passwordEditText.setError("Enter correct password");
-                }
+                    passwordEditText.setError("Enter password");
+                    progressDialog.hide();
+                }else {
+
                 // [START sign_in_with_email]
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
@@ -113,8 +113,9 @@ public class Login extends AppCompatActivity {
 
                             }
                         });
-            }
+            }}
         });
+
     }
 
     @Override
