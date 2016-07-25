@@ -15,6 +15,7 @@ import android.view.View;
 
 import com.pies.platform.BaseActivity;
 import com.pies.platform.R;
+import com.pies.platform.admin.Create_Account;
 import com.pies.platform.fragment.Teachers_list;
 import com.pies.platform.model.managers.Manager_Assign;
 
@@ -48,8 +49,7 @@ public class Assignment extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(getApplicationContext(), Create_Account.class));
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);

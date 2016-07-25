@@ -8,6 +8,8 @@ import android.widget.TextView;
 import com.pies.platform.R;
 import com.pies.platform.teachersActivity.model.teacher_data;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class TeacherListViewHolder extends RecyclerView.ViewHolder {
 
     public TextView tname;

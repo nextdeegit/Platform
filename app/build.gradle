@@ -1,20 +1,47 @@
 apply plugin: 'com.android.application'
 
+
+repositories {
+    mavenLocal()
+    flatDir {
+        dirs 'libs'
+    }
+}
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.0"
 
     defaultConfig {
         applicationId "com.pies.platform"
-        minSdkVersion 15
-        targetSdkVersion 24
+        minSdkVersion 10
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary = true
-    }
+        multiDexEnabled true
+
+        productFlavors {
+            // Define separate dev and prod product flavors.
+            dev {
+                // dev utilizes minSDKVersion = 21 to allow the Android gradle plugin
+                // to pre-dex each module and produce an APK that can be tested on
+                // Android Lollipop without time consuming dex merging processes.
+                minSdkVersion 21
+            }
+            prod {
+                // The actual minSdkVersion for the application.
+                minSdkVersion 10
+            }
+
+
+        }
+
     buildTypes {
         release {
-            minifyEnabled false
+
+        }
+
+//        minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -41,6 +68,11 @@ dependencies {
     compile 'com.squareup.picasso:picasso:2.5.2'
     compile 'com.android.support:recyclerview-v7:24.0.0'
     compile 'com.android.support:cardview-v7:24.0.0'
-    compile 'de.hdodenhof:circleimageview:1.3.0'
+    compile 'de.hdodenhof:circleimageview:2.0.0'
+    compile 'com.android.support:multidex:1.0.0'
+    compile 'pub.devrel:easypermissions:0.1.7'
+    compile 'com.google.firebase:firebase-crash:9.2.1'
+    compile 'com.google.firebase:firebase-storage:9.2.1'
+    compile 'com.github.lzyzsd:circleprogress:1.1.0@aar'
 }
 apply plugin: 'com.google.gms.google-services'

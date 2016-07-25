@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,10 +21,12 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.pies.platform.Login;
@@ -164,6 +167,10 @@ private Spinner spinner ,spinner1;
                                        // createAdmin("erdffdfdfd","paul akpan","edak@gmail.com", "tommytom","admin");
                                         FirebaseUser user = mAuth.getCurrentUser();
 
+
+
+
+
                                         uidMe = user.getUid();
 
                                         if(userType.equals("Teacher")){
@@ -174,7 +181,7 @@ private Spinner spinner ,spinner1;
                                         }
 
                                         else  if(userType.equals("Admin")){
-                                            createAdmin(uidMe,username,email,password, userType);
+                                            createAdmin(uidMe,username,email, userType);
                                         }
 
 
@@ -207,7 +214,7 @@ private Spinner spinner ,spinner1;
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            createAdmin("erdffdfdfd","paul akpan","edak@gmail.com", "tommytom","admin");
+        //    createAdmin("erdffdfdfd","paul akpan","edak@gmail.com", "tommytom","admin");
             mDatabase.child("all").setValue("sikak");
             return true;
         }
@@ -348,17 +355,17 @@ private Spinner spinner ,spinner1;
 
     }
     // [START write_fan_out]
-    private void createAdmin(String u,String user, String email_one,String password1, String usertype1) {
+    private void createAdmin(String u,String user, String email_one, String usertype1) {
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
         String key = mDatabase.child("all-user").push().getKey();
-        Admin_data admin = new Admin_data( u,user, email_one,password1,usertype1);
+        Admin_data admin = new Admin_data( u,user, email_one,usertype1);
         Map<String, Object> postValues = admin.toAdmin();
 
         Map<String, Object> childUpdates = new HashMap<>();
        childUpdates.put("/admin-Added/" + key , postValues);
-        childUpdates.put("/admin-Profile/" + u +"/"+ key , postValues);
-        childUpdates.put("/all-user/" + key , postValues);
+        childUpdates.put("/admin-Profile/" + u  , postValues);
+        childUpdates.put("/all-user/" + key + "/" + u , postValues);
         childUpdates.put("/auth-user/" + u ,postValues);
         mDatabase.updateChildren(childUpdates).addOnCompleteListener( new OnCompleteListener<Void>() {
             @Override

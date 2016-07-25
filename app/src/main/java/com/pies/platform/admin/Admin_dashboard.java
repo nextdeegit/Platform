@@ -12,19 +12,22 @@ import android.support.v7.widget.Toolbar;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.pies.platform.Login;
 import com.pies.platform.R;
+import com.pies.platform.custom.RoundFormation;
+import com.squareup.picasso.Picasso;
 
 public class Admin_dashboard extends AppCompatActivity {
     FirebaseAuth mFirebaseAuth;
     private static final String TAG = "ManagerHome";
     private FirebaseUser mFirebaseUser;
     private String teacherNam, teacherEmail;
-
+private  ImageView adminImage;
     private FirebaseAuth.AuthStateListener mAuthListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,9 @@ public class Admin_dashboard extends AppCompatActivity {
         setContentView(R.layout.activity_admin_dashboard);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {

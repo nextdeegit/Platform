@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/admin_image"
             android:layout_width="70dp"
             android:layout_gravity="start"
@@ -18,6 +18,7 @@
             android:scaleType="fitXY"
             android:layout_height="70dp"
             android:src="@drawable/ic_account_circle_black_24dp"/>
+
         <TextView
             android:visibility="invisible"
             android:layout_width="wrap_content"
@@ -30,12 +31,13 @@
             android:layout_marginStart="25dp"
             android:layout_alignBottom="@+id/admin_email"
             android:layout_alignLeft="@+id/admin_image"
-            android:layout_alignStart="@+id/admin_image" />
+            android:layout_alignStart="@+id/admin_image"
+            android:id="@+id/textView2" />
         <TextView
             android:textStyle="bold"
             android:textColor="#212121"
             android:textSize="20sp"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="19dp"
             android:layout_toRightOf="@+id/admin_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

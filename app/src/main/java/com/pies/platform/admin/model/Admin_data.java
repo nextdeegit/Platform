@@ -24,11 +24,10 @@ public class Admin_data {
 
 
 
-    public Admin_data(String uid, String name, String email, String password, String userType){
+    public Admin_data(String uid, String name, String email,  String userType){
         this.uid = uid;
         this.name = name;
         this.email = email;
-        this.email = password;
         this.userType = userType;
     }
 
