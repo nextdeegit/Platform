@@ -4,8 +4,14 @@
     android:layout_height="match_parent"
 
     tools:context="com.pies.platform.teachersActivity.AssignmentFragment"
+tools:showIn="@layout/activity_assign_home"
     >
 
+    <ProgressBar
+        android:id="@+id/progress1"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/messages_list"
         android:layout_width="match_parent"
@@ -15,5 +21,6 @@
         android:padding="5dp"
         android:scrollbars="vertical"
         tools:listitem="@layout/teachers_list" />
+
 
 </RelativeLayout>

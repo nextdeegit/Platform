@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.github.lzyzsd.circleprogress.CircleProgress;
@@ -25,6 +26,7 @@ import com.pies.platform.admin.Admin_dashboard;
 import com.pies.platform.custom.CircleProgressBar;
 import com.pies.platform.custom.ColorPickerDialog;
 import com.pies.platform.custom.ColorPickerSwatch;
+import com.pies.platform.managersActivity.Manager_Dashboard;
 import com.pies.platform.model_users.Users;
 import com.pies.platform.teachersActivity.Teachers_Dashboard;
 
@@ -36,16 +38,17 @@ public class Verification extends AppCompatActivity {
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
     private FirebaseUser mFirebaseUser;
     private  ProgressDialog progressDialog;
-    private DonutProgress progressBar;
-    private String userID;
+    private ProgressBar progressBar;
+    private String userID, url;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_verification);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        /*Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-    progressBar = (DonutProgress) findViewById(R.id.donut_progress);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+*/
+    progressBar = (ProgressBar) findViewById(R.id.donut_progress);
 
 
 
@@ -70,8 +73,8 @@ public class Verification extends AppCompatActivity {
                     // User is signed in
 //                    Log.d(TAG, "onAuthStateChanged:signed_in:" + mFirebaseUser.getUid());
                      userID =  mFirebaseUser.getUid();
-                    checkUser(userID);
-                    Toast.makeText(Verification.this,userID, Toast.LENGTH_SHORT).show();
+                    checkUser(mFirebaseUser.getUid());
+                   // Toast.makeText(Verification.this,userID, Toast.LENGTH_SHORT).show();
                     // createAdmin("","Paul","edakndk@gmail.com", "cagjagkcjgak","Admin");
                 }else{
 
@@ -100,10 +103,14 @@ public class Verification extends AppCompatActivity {
 
                 Users item = dataSnapshot.getValue(Users.class);
                 progressBar.setProgress(progressBar.getProgress() + 35);
-                String url = item.getUserType();
+                if(item.getUserType() != null){
+                     url = item.getUserType();
+                }
+
+                String uid = item.getUid();
                 if (url.equals("Manager")) {
-                    progressBar.setProgress(progressBar.getProgress() + 35);
-                    startActivity(new Intent(getApplicationContext(), Login.class));
+                  //  progressBar.setProgress(progressBar.getProgress() + 35);
+                    startActivity(new Intent(getApplicationContext(), Manager_Dashboard.class));
                     finish();
                   progressBar.setVisibility(View.INVISIBLE);
                 }else if(url.equals("Admin")){
@@ -113,8 +120,11 @@ public class Verification extends AppCompatActivity {
                     finish();
                 }
                 else if(url.equals("Teacher")){
+
                     progressBar.setProgress(progressBar.getProgress() + 35);
-                    startActivity(new Intent(getApplicationContext(), Teachers_Dashboard.class));
+                   Intent intent = new Intent(getApplicationContext(), Teachers_Dashboard.class);
+                    intent.putExtra("uid", uid);
+                    startActivity(intent);
                     progressBar.setVisibility(View.INVISIBLE);
                     finish();
                 }

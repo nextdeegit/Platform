@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
@@ -39,16 +40,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.crash.FirebaseCrash;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ServerValue;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.pies.platform.Login;
 import com.pies.platform.ProgressDialogFragment;
 import com.pies.platform.R;
+import com.pies.platform.admin.model.Admin_data;
 import com.pies.platform.admin.model.imageData;
 import com.pies.platform.custom.RoundFormation;
 import com.squareup.picasso.Picasso;
@@ -72,8 +76,8 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class Admin_profile extends AppCompatActivity implements  EasyPermissions.PermissionCallbacks {
     public static final String TAG = "NewPost";
 
-    private static final int THUMBNAIL_MAX_DIMENSION = 440;
-    private static final int FULL_SIZE_MAX_DIMENSION = 800;
+    private static final int THUMBNAIL_MAX_DIMENSION = 240;
+    private static final int FULL_SIZE_MAX_DIMENSION = 500;
     private static final String TAG_DIALOG_FRAGMENT = "DIALOG_FRAGMENT";
     private Button mSubmitButton;
 
@@ -94,6 +98,8 @@ private  ProgressDialog progressDialog;
     private static final String[] cameraPerms = new String[]{
             android.Manifest.permission.READ_EXTERNAL_STORAGE
     };
+    private DatabaseReference mDatabase;
+    private String title;
 private ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,13 +108,15 @@ private ProgressBar progressBar;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        collapsingToolbarLayout.setTitle(title);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         progressBar = (ProgressBar) findViewById(R.id.progress);
         progressBar.setVisibility(View.INVISIBLE);
         progressDialog = new ProgressDialog(Admin_profile.this);
-//        progressDialog.setMessage("Updating Profile    m...");
+       progressDialog.setMessage("Updating Profile    m...");
+        progressDialog.setCancelable(false);
 
 
         email = (TextView) findViewById(R.id.user_email);
@@ -124,7 +132,7 @@ private ProgressBar progressBar;
         mAuth = FirebaseAuth.getInstance();
         // [START auth_state_listener]
 
-
+mDatabase = FirebaseDatabase.getInstance().getReference();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -135,6 +143,7 @@ private ProgressBar progressBar;
                     startActivity(goback);
                     finish();
                 } else {
+                    checkUser(currentUser.getUid());
                     if (currentUser.getPhotoUrl() != null) {
                         String url = currentUser.getPhotoUrl().toString();
                         setprofileImage(url);
@@ -239,21 +248,37 @@ private ProgressBar progressBar;
                     isCamera = true;
                 } else {
                     isCamera = MediaStore.ACTION_IMAGE_CAPTURE.equals(data.getAction());
+                    String u =currentUser.getUid().toString();
+                    upLoad(u);
                 }
                 if (!isCamera) {
                     mFileUri = data.getData();
-
+                    String u =currentUser.getUid().toString();
+                    upLoad(u);
                 }
                 Log.d(TAG, "Received file uri: " + mFileUri.getPath());
-
+                String u =currentUser.getUid().toString();
+                upLoad(u);
                 resizeBitmap(mFileUri, THUMBNAIL_MAX_DIMENSION);
                 resizeBitmap(mFileUri, FULL_SIZE_MAX_DIMENSION);
-                upLoad(currentUser.getUid().toString());
+
 
 
 
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        if(mResizedBitmap != null){
+            mResizedBitmap = null;
+        }
+        if(mThumbnail != null){
+            mThumbnail = null;
+        }
+        super.onResume();
+
     }
 
     @Override
@@ -412,7 +437,6 @@ private ProgressBar progressBar;
                                                 Log.e(TAG, "Profile updated " );
                                             }
                                             else{
-                                                progressBar.setVisibility(View.INVISIBLE);
                                                 Log.e(TAG, "Profile update failed");
                                             }
                                         }
@@ -440,7 +464,7 @@ private ProgressBar progressBar;
                                                 onPostUploaded(null);
 
                                             } else {
-                                            progressBar.setVisibility(View.INVISIBLE);
+
                                                 Toast.makeText(Admin_profile.this, "Unable to upload", Toast.LENGTH_SHORT).show();
                                                 Log.e(TAG, "Unable to create new post: " + firebaseError.getMessage());
                                                 FirebaseCrash.report(firebaseError.toException());
@@ -577,6 +601,7 @@ private ProgressBar progressBar;
     }
 
     public void upLoad(String uid){
+        progressDialog.show();
         progressBar.setVisibility(View.VISIBLE);
         Long timestamp = System.currentTimeMillis();
 
@@ -598,7 +623,32 @@ private ProgressBar progressBar;
         progressBar.setVisibility(View.INVISIBLE);
     }
 
+    public void checkUser(String uid) {
 
+        mDatabase.child("admin-Profile").child(uid).addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                Admin_data item = dataSnapshot.getValue(Admin_data.class);
+                if(item.getName() != null){
+                    String name1 = item.getName();
+                  //  Toast.makeText(getActivity(), aNam, Toast.LENGTH_SHORT).show();
+                    name.setText(name1);
+                }
+                if(item.getEmail() != null){
+                    title = item.getName();
+                    email.setText(item.getEmail().toString());
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(getApplicationContext(), "url not founded", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     @Override
     public void onStart() {
         super.onStart();

@@ -3,9 +3,11 @@ package com.pies.platform.teachersActivity;
         import com.google.firebase.database.Query;
         import com.pies.platform.R;
 
+        import android.app.Activity;
         import android.app.Fragment;
         import android.app.ProgressDialog;
         import android.content.Intent;
+        import android.os.AsyncTask;
         import android.support.annotation.NonNull;
         import android.support.annotation.Nullable;
 
@@ -17,6 +19,9 @@ package com.pies.platform.teachersActivity;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
+        import android.widget.GridView;
+        import android.widget.ListView;
+        import android.widget.ProgressBar;
         import android.widget.TextView;
         import android.widget.Toast;
 
@@ -64,13 +69,15 @@ public class AssignmentFragment extends android.support.v4.app.Fragment {
     // [START define_database_reference]
     private DatabaseReference mDatabase;
     // [END define_database_reference]
-
+    String postKey;
     private FirebaseRecyclerAdapter<teacher_data, TeacherListViewHolder> mAdapter;
     private RecyclerView mRecycler;
     private LinearLayoutManager mManager;
 
     ProgressDialog progressDialog;
-
+    private DatabaseReference mPostReference;
+    private ValueEventListener mPostListener;
+    private ProgressBar pd;
     public AssignmentFragment() {
     }
 
@@ -84,16 +91,18 @@ public class AssignmentFragment extends android.support.v4.app.Fragment {
         // [START create_database_reference]
         mDatabase = FirebaseDatabase.getInstance().getReference();
         // [END create_database_reference]
-
+pd = (ProgressBar) root.findViewById(R.id.progress1);
         mRecycler = (RecyclerView) root.findViewById(R.id.messages_list);
         mRecycler.setHasFixedSize(true);
-
+    updateList();
         return root;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
+
 
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -122,6 +131,20 @@ public class AssignmentFragment extends android.support.v4.app.Fragment {
         mManager.setStackFromEnd(true);
         mRecycler.setLayoutManager(mManager);
 
+
+
+
+
+    }
+
+
+
+    public void bindGridview() {
+
+        new Updater(getActivity(),mRecycler,pd,this).execute();
+    }
+
+    public void updateList(){
         // Set up FirebaseRecyclerAdapter with the Query
         Query postsQuery = getQuery(mDatabase);
         mAdapter = new FirebaseRecyclerAdapter<teacher_data, TeacherListViewHolder>(teacher_data.class, R.layout.teachers_list,
@@ -131,13 +154,18 @@ public class AssignmentFragment extends android.support.v4.app.Fragment {
                 final DatabaseReference postRef = getRef(position);
 
                 // Set click listener for the whole post view
-                final String postKey = postRef.getKey();
+                postKey = postRef.getKey();
+
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         // Launch PostDetailActivity
+
+
                         Intent intent = new Intent(getActivity(), Works_Detail.class);
-                       // intent.putExtra(PostDetailActivity.EXTRA_POST_KEY, postKey);
+                        intent.putExtra("post_key", postRef.getKey().toString());
+                        intent.putExtra("uid", userId);
+
                         startActivity(intent);
                     }
                 });
@@ -151,6 +179,7 @@ public class AssignmentFragment extends android.support.v4.app.Fragment {
 
             }
         };
+        pd.setVisibility(View.INVISIBLE);
         mRecycler.setAdapter(mAdapter);
     }
     @Override
@@ -158,12 +187,16 @@ public class AssignmentFragment extends android.support.v4.app.Fragment {
         super.onDestroy();
         if (mAdapter != null) {
             mAdapter.cleanup();
+            postKey = "";
         }
     }
     @Override
     public void onStart() {
         super.onStart();
+
         mFirebaseAuth.addAuthStateListener(mAuthListener);
+
+
     }
 
     @Override
@@ -185,6 +218,81 @@ public class AssignmentFragment extends android.support.v4.app.Fragment {
        // Query recentPostsQuery = databaseReference.child("Teachers-Added").child("SPUE1xO0JbTaXUqM80xPmszCUIK2");
         // [END recent_posts_query]
 ;
-        return databaseReference.child("all-user");
+        return databaseReference.child("Teachers-Added");
+    }
+
+
+
+    @Override
+    public void onPause() {
+        super.onPause();
+      // mPostListener = null;
+    }
+    public void showLoader()
+    {
+        getActivity().runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                pd.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+   public void hideLoader()
+    {
+        getActivity().runOnUiThread(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                pd.setVisibility(View.INVISIBLE);
+            }
+        });
+    }
+
+
+  private class Updater extends AsyncTask<Void,Void,Void> {
+       RecyclerView list;
+       Activity context;
+       ProgressBar pt;
+       AssignmentFragment container;
+
+
+        public Updater(Activity context,RecyclerView list, ProgressBar pt, AssignmentFragment container){
+            this.list = list;
+            this.context = context;
+            this.pt = pt;
+            this.container = container;
+        }
+        @Override
+        protected void onPreExecute() {
+          // container.showLoader();
+            container.pd.setVisibility(View.VISIBLE);
+            super.onPreExecute();
+
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+           container.updateList();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            list.setAdapter(mAdapter);
+            //container.hideLoader();
+            container.pd.setVisibility(View.INVISIBLE);
+            super.onPostExecute(aVoid);
+
+
+
+
+
+
+
+        }
     }
 }

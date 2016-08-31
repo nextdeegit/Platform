@@ -62,6 +62,8 @@ public class Assignment extends AppCompatActivity {
         adapter.addFragment(new Manager_Assign(), "Managers");
 
         viewPager.setAdapter(adapter);
+
+
     }
 
     static class Adapter extends FragmentPagerAdapter {

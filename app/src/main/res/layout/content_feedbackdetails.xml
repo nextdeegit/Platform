@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:fillViewport="true"
+    android:background="#FFF0DFEA"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:layout_marginTop="60dp"
+    android:layout_marginBottom="80dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.pies.platform.Feedbackdetails"
+    tools:showIn="@layout/activity_feedbackdetails">
+   <include
+
+       android:layout_margin="4dp"
+       android:id="@+id/layer1"
+       layout="@layout/feedback_item"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       />
+</RelativeLayout>
+</ScrollView>

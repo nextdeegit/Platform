@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layer1"
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
@@ -11,44 +11,51 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/teacher_image"
-            android:layout_width="70dp"
+            android:layout_width="55dp"
             android:layout_gravity="start"
             android:layout_margin="7dp"
             android:scaleType="fitXY"
-            android:layout_height="70dp"
-            android:src="@drawable/ic_account_circle_black_24dp"/>
+            android:layout_height="55dp"
+            app:srcCompat="@drawable/ic_account_circle_black_24dp"
+           />
         <TextView
-            android:visibility="invisible"
-            android:layout_width="wrap_content"
-            android:textStyle="bold"
-            android:layout_height="wrap_content"
+            android:background="@drawable/circle_2"
+            android:id="@+id/t_index"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
             android:textSize="30sp"
             android:textColor="#fff"
             android:text="A"
-            android:layout_marginLeft="25dp"
-            android:layout_marginStart="25dp"
+            android:gravity="center"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="14dp"
+            android:layout_marginLeft="14dp"
+
             android:layout_alignBottom="@+id/teacher_email"
-            android:layout_alignLeft="@+id/teacher_image"
-            android:layout_alignStart="@+id/teacher_image" />
+            />
         <TextView
-            android:textStyle="bold"
             android:textColor="#212121"
             android:textSize="20sp"
-            android:layout_marginTop="17dp"
-            android:layout_toRightOf="@+id/teacher_image"
+            android:layout_marginTop="12dp"
+            android:layout_toRightOf="@+id/t_index"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Teachers Name"
+
             android:id="@+id/teacher_name"/>
         <TextView
-            android:layout_toRightOf="@+id/teacher_image"
+            android:layout_toRightOf="@+id/t_index"
             android:textSize="13sp"
+            android:textColor="#727272"
+
             android:layout_marginTop="1dp"
             android:layout_below="@+id/teacher_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nsikak Thompson"
+
             android:id="@+id/teacher_email"/>
 
     </RelativeLayout>

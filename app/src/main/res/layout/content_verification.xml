@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.pies.platform.Verification"
     tools:showIn="@layout/activity_verification">
@@ -12,10 +13,22 @@
     android:layout_centerInParent="true"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
-    <com.github.lzyzsd.circleprogress.DonutProgress
+    <ProgressBar
+        android:layout_centerInParent="true"
+        android:padding="5dp"
+        android:background="@drawable/circle"
         android:id="@+id/donut_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
        />
+    <TextView
+        android:textColor="#fff"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        android:layout_below="@+id/donut_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Getting Ready"/>
 </RelativeLayout>
 </RelativeLayout>

@@ -29,6 +29,7 @@ public class ManagerListViewHolder extends RecyclerView.ViewHolder {
         tname.setText(post.getName());
         temail.setText(post.getEmail());
         region.setText(post.getRegion());
+        thumnial.setImageResource(R.drawable.circle_2);
 
 
         //starView.setOnClickListener(starClickListener);

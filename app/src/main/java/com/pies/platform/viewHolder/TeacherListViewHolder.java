@@ -13,22 +13,29 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class TeacherListViewHolder extends RecyclerView.ViewHolder {
 
     public TextView tname;
-    public TextView temail, region;
+    public TextView temail, region, index;
     public ImageView thumnial;
 
     public TeacherListViewHolder(View itemView) {
         super(itemView);
 
         tname = (TextView) itemView.findViewById(R.id.teacher_name_list);
-       temail= (TextView) itemView.findViewById(R.id.teacher_email_list);
-     thumnial = (ImageView) itemView.findViewById(R.id.teacher_image_list);
+        temail= (TextView) itemView.findViewById(R.id.teacher_email_list);
+        thumnial = (ImageView) itemView.findViewById(R.id.teacher_image_list);
         region = (TextView) itemView.findViewById(R.id.teacher_region);
+        index = (TextView) itemView.findViewById(R.id.textView3);
 
     }
 
     public void bindToPost(teacher_data post, View.OnClickListener starClickListener) {
+        if(post.getName() != null){
+            String n = post.getName();
+            String first = n.substring(0,1);
+            index.setText(first);
+        }
+
         tname.setText(post.getName());
-       temail.setText(post.getEmail());
+        temail.setText(post.getEmail());
         region.setText(post.getRegion());
 
 

@@ -25,10 +25,12 @@ public class AdminAdapter extends RecyclerView.Adapter<AdminAdapter.MyViewHolder
 
         public MyViewHolder(View view) {
             super(view);
+
             imgItem = (ImageView) view.findViewById(R.id.thumdicon);
             txtItem = (TextView) view.findViewById(R.id.titleName);
             numberitem = (TextView) view.findViewById(R.id.number);
             description = (TextView) view.findViewById(R.id.description);
+
         }
     }
 

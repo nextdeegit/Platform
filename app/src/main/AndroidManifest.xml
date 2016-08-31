@@ -2,6 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.pies.platform">
 
+    <permission
+        android:name="com.google.maps.android.utils.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="com.google.maps.android.utils.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
     !-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -11,17 +16,25 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <!-- To get pictures from camera for new posts -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+    <!--
+         The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
+         Google Maps Android API v2, but you must specify either coarse or fine
+         location permissions for the 'MyLocation' functionality. 
+    -->
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
-        android:name="android.support.multidex.MultiDexApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Home"
-            android:label="@string/title_activity_home"
+            android:name=".Splash"
+            android:label="@string/title_activity_splash"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,30 +43,32 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Home"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
             android:name=".Login"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:launchMode="singleTop"
             android:name=".teachersActivity.Teachers_Dashboard"
             android:label="@string/title_activity_teachers__dashboard"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".Home">
+            android:launchMode="singleTop"
+            android:parentActivityName=".Home"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pies.platform.Home" />
-            </activity>
+        </activity>
         <activity
-
             android:name=".admin.Admin_dashboard"
             android:label="@string/title_activity_admin_dashboard"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:parentActivityName=".Home">
+            android:parentActivityName=".Home"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pies.platform.Home" />
-            </activity>
-
+        </activity>
         <activity
             android:name=".admin.Create_Account"
             android:label="@string/title_activity_create__account"
@@ -66,10 +81,7 @@
         <activity
             android:name=".Verification"
             android:label="@string/title_activity_verification"
-
-            android:theme="@style/AppTheme.NoActionBar" >
-
-            </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".teachersActivity.Assignment"
             android:label="@string/title_activity_assignment"
@@ -96,6 +108,133 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.pies.platform.admin.Admin_dashboard" />
+        </activity>
+        <activity
+            android:name=".admin.Add_Home"
+            android:label="@string/title_activity_add__home"
+            android:parentActivityName=".admin.Admin_dashboard"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pies.platform.admin.Admin_dashboard" />
+        </activity>
+        <!--
+             The API key for Google Maps-based APIs is defined as a string resource.
+             (See the file "res/values/google_maps_api.xml").
+             Note that the API key is linked to the encryption key used to sign the APK.
+             You need a different API key for each encryption key, including the release key that is used to
+             sign the APK for publishing.
+             You can define the keys for the debug and release targets in src/debug/ and src/release/. 
+        -->
+
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".admin.MapsActivity"
+            android:label="@string/title_activity_maps" />
+        <!--
+ ATTENTION: This was auto-generated to add Google Play services to your project for
+     App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <activity
+            android:name=".teachersActivity.MyHome"
+            android:label="@string/title_activity_my_home"
+            android:parentActivityName=".teachersActivity.Teachers_Dashboard"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pies.platform.teachersActivity.Teachers_Dashboard" />
+        </activity>
+        <activity
+            android:name=".teachersActivity.Objectives"
+            android:label="@string/title_activity_objectives"
+            android:parentActivityName=".teachersActivity.Teachers_Dashboard"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pies.platform.teachersActivity.Teachers_Dashboard" />
+        </activity>
+        <activity
+            android:name=".teachersActivity.Feedback"
+            android:label="@string/title_activity_feedback"
+            android:parentActivityName=".teachersActivity.Teachers_Dashboard"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pies.platform.teachersActivity.Teachers_Dashboard" />
+        </activity>
+        <activity
+            android:name=".managersActivity.Manager_Dashboard"
+            android:label="@string/title_activity_manager__dashboard"
+            android:parentActivityName=".Home"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pies.platform.Home" />
+        </activity>
+        <activity
+            android:name=".managersActivity.Teachers"
+            android:label="@string/title_activity_teachers"
+            android:parentActivityName=".managersActivity.Manager_Dashboard"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pies.platform.managersActivity.Manager_Dashboard" />
+        </activity>
+        <activity
+            android:name=".managersActivity.Objandfeedback"
+            android:label="@string/title_activity_objandfeedback"
+            android:parentActivityName=".managersActivity.Manager_Dashboard"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pies.platform.managersActivity.Manager_Dashboard" />
+        </activity>
+        <activity
+            android:name=".admin.Feedback_Feeds"
+            android:label="@string/title_activity_feedback__feeds"
+            android:parentActivityName=".admin.Add_Home"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pies.platform.admin.Add_Home" />
+        </activity>
+        <activity
+            android:name=".PasswordReset"
+            android:label="@string/title_activity_password_reset"
+            android:parentActivityName=".Login"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pies.platform.Login" />
+        </activity>
+        <activity
+            android:name=".OBjfragment"
+            android:label="@string/title_activity_objfragment"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Feedbackdetails"
+            android:label="@string/title_activity_feedbackdetails"
+            android:parentActivityName=".managersActivity.Objandfeedback"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pies.platform.managersActivity.Objandfeedback" />
+        </activity>
+        <activity
+            android:name=".managersActivity.AssignHome"
+            android:label="@string/title_activity_assign_home"
+            android:parentActivityName=".managersActivity.Manager_Dashboard"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pies.platform.managersActivity.Manager_Dashboard" />
         </activity>
     </application>
 

@@ -3,12 +3,14 @@ package com.pies.platform.admin;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +21,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -41,26 +45,35 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class Create_Account extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
-private Spinner spinner ,spinner1;
+    private Spinner spinner, spinner1;
     @Bind(R.id.input_email)
     EditText _emailText;
-    @Bind(R.id.input_password) EditText _passwordText;
+    @Bind(R.id.input_password)
+    EditText _passwordText;
     @Bind(R.id.btn_signup)
     Button _signupButton;
-    @Bind(R.id.input_name) EditText teachersName;
+    @Bind(R.id.input_name)
+    EditText teachersName;
     // @Bind(R.id.link_login) TextView _loginLink;
-   // @Bind(R.id.input_password_reentered) EditText renterPassword;
-     FirebaseAuth mAuth;
-     FirebaseAuth.AuthStateListener mAuthListener;
+    // @Bind(R.id.input_password_reentered) EditText renterPassword;
+    FirebaseAuth mAuth;
+    FirebaseAuth.AuthStateListener mAuthListener;
     private static final String TAG = "EmailPassword";
     // [START declare_database_ref]
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    ;
     private FirebaseUser mFirebaseUser;
     // [END declare_database_ref]
     String uidMe;
     ProgressDialog progressDialog;
     private GoogleApiClient mGoogleApiClient;
     String userType, selectedRegion;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,14 +96,15 @@ private Spinner spinner ,spinner1;
                 if (mFirebaseUser != null) {
                     // User is signed in
 //                    Log.d(TAG, "onAuthStateChanged:signed_in:" + mFirebaseUser.getUid());
-                    String test =  mFirebaseUser.getUid();
-                    Toast.makeText(Create_Account.this,test, Toast.LENGTH_SHORT).show();
-                   // createAdmin("","Paul","edakndk@gmail.com", "cagjagkcjgak","Admin");
-                }else{
+                    String test = mFirebaseUser.getUid();
+                    Toast.makeText(Create_Account.this, test, Toast.LENGTH_SHORT).show();
+                    // createAdmin("","Paul","edakndk@gmail.com", "cagjagkcjgak","Admin");
+                } else {
 
                     startActivity(new Intent(getApplicationContext(), Login.class));
                 }
-            }};
+            }
+        };
         progressDialog = new ProgressDialog(Create_Account.this);
         progressDialog.setIndeterminate(true);
         progressDialog.setMessage("Creating Account...");
@@ -116,9 +130,6 @@ private Spinner spinner ,spinner1;
         spinner1.setOnItemSelectedListener(this);
 
 
-
-
-
         validate();
         _signupButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -126,7 +137,7 @@ private Spinner spinner ,spinner1;
                 final String password = _passwordText.getText().toString();
                 final String email = _emailText.getText().toString();
                 final String username = teachersName.getText().toString();
-               // final String reenterPassword = renterPassword.getText().toString();
+                // final String reenterPassword = renterPassword.getText().toString();
                 //password = password.trim();
                 //email = email.trim();
 
@@ -136,18 +147,14 @@ private Spinner spinner ,spinner1;
                             .setTitle("Please complete the form")
                             .setPositiveButton(android.R.string.ok, null);
                     AlertDialog dialog = builder.create();
-                    dialog.show();}
-
-
-               else if(userType.equals("Choose UserType") && selectedRegion.equals("Choose Region")){
+                    dialog.show();
+                } else if (userType.equals("Choose UserType") && selectedRegion.equals("Choose Region")) {
                     Toast.makeText(Create_Account.this, "Incomplete Form", Toast.LENGTH_SHORT).show();
 
 
-
-                }
-                else if((userType.equals("Manager") || userType.equals("Student") || userType.equals("Teacher")) && selectedRegion.equals("Choose Region")) {
+                } else if ((userType.equals("Manager") || userType.equals("Student") || userType.equals("Teacher")) && selectedRegion.equals("Choose Region")) {
                     Toast.makeText(Create_Account.this, "Region not selected", Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     progressDialog.show();
                     // [START create_user_with_email]
                     mAuth.createUserWithEmailAndPassword(email, password)
@@ -159,34 +166,26 @@ private Spinner spinner ,spinner1;
                                     // the auth state listener will be notified and logic to handle the
                                     // signed in user can be handled in the listener.
                                     if (!task.isSuccessful()) {
-                                        Toast.makeText(Create_Account.this, "Authentication failed." + email + password,
+                                        Toast.makeText(Create_Account.this, "Failed to add user" + email + password,
                                                 Toast.LENGTH_SHORT).show();
-                                    }
-                                    else
-                                    {
-                                       // createAdmin("erdffdfdfd","paul akpan","edak@gmail.com", "tommytom","admin");
+                                        progressDialog.hide();
+                                    } else {
+                                        // createAdmin("erdffdfdfd","paul akpan","edak@gmail.com", "tommytom","admin");
                                         FirebaseUser user = mAuth.getCurrentUser();
-
-
-
 
 
                                         uidMe = user.getUid();
 
-                                        if(userType.equals("Teacher")){
-                                            createTeacher(uidMe,username,email,password, userType,selectedRegion);
-                                        }
-                                        else if(userType.equals("Manager")){
-                                            createManager(uidMe,username,email,password, userType, selectedRegion);
-                                        }
-
-                                        else  if(userType.equals("Admin")){
-                                            createAdmin(uidMe,username,email, userType);
+                                        if (userType.equals("Teacher")) {
+                                            createTeacher(uidMe, username, email, password, userType, selectedRegion);
+                                        } else if (userType.equals("Manager")) {
+                                            createManager(uidMe, username, email, password, userType, selectedRegion);
+                                        } else if (userType.equals("Admin")) {
+                                            createAdmin(uidMe, username, email, userType);
                                         }
 
 
                                     }
-
 
 
                                 }
@@ -195,6 +194,9 @@ private Spinner spinner ,spinner1;
 
             }
         });
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
 
@@ -214,21 +216,21 @@ private Spinner spinner ,spinner1;
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-        //    createAdmin("erdffdfdfd","paul akpan","edak@gmail.com", "tommytom","admin");
+            //    createAdmin("erdffdfdfd","paul akpan","edak@gmail.com", "tommytom","admin");
             mDatabase.child("all").setValue("sikak");
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         // parent.getItemAtPosition(pos)
         userType = spinner.getSelectedItem().toString();
-        if(userType.equals("Admin")){
+        if (userType.equals("Admin")) {
             spinner1.setVisibility(View.GONE);
-        }
-        else{
+        } else {
             spinner1.setVisibility(View.VISIBLE);
         }
         selectedRegion = spinner1.getSelectedItem().toString();
@@ -253,7 +255,7 @@ private Spinner spinner ,spinner1;
             teachersName.setError(null);
         }
 
-        if (email.isEmpty() || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+        if (email.isEmpty() || !Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             _emailText.setError("enter a valid email address");
             valid = false;
         } else {
@@ -271,30 +273,31 @@ private Spinner spinner ,spinner1;
     }
 
     // [START write_fan_out]
-    private void createTeacher( String uid,String username, String email,String password, String usertype, String region) {
+    private void createTeacher(final String uid, String username, String email, String password, String usertype, String region) {
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
         String key = mDatabase.child("all-user").push().getKey();
-        teacher_data teacher = new teacher_data( uid,username,email, password,usertype, region);
+        teacher_data teacher = new teacher_data(uid, username, email, password, usertype, region);
         Map<String, Object> postValues = teacher.toMap1();
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/Teachers-Added/" + key , postValues);
+        childUpdates.put("/Teachers-Info/" + uid, postValues);
         childUpdates.put("/Teachers-Profile/" + uid + "/" + key, postValues);
-        childUpdates.put("/auth-user/" + uid ,postValues);
-        childUpdates.put("/all-user/" + key , postValues);
-        mDatabase.updateChildren(childUpdates).addOnCompleteListener( new OnCompleteListener<Void>() {
+        childUpdates.put("/auth-user/" + uid, postValues);
+        childUpdates.put("/all-user/" + key, postValues);
+        mDatabase.updateChildren(childUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (!task.isSuccessful()) {
-                    Toast.makeText(Create_Account.this, "Teacher not Added" ,
+                    Toast.makeText(Create_Account.this, "Teacher not Added",
                             Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
+                    mDatabase.child("Assigned-Homes").setValue(uid);
                     AlertDialog.Builder builder = new AlertDialog.Builder(Create_Account.this);
                     builder.setMessage("Teacher Added")
                             .setTitle("Welcome to PIES")
                             .setCancelable(false)
-                            .setPositiveButton(android.R.string.ok,new DialogInterface.OnClickListener() {
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     //FirebaseAuth.getInstance().signOut();
                                     mAuth.signOut();
@@ -313,30 +316,32 @@ private Spinner spinner ,spinner1;
 
 
     }
+
     // [START write_fan_out]
-    private void createManager( String uid,String username, String email,String password, String usertype, String region) {
+    private void createManager(String uid, String username, String email, String password, String usertype, String region) {
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
         String key = mDatabase.child("all-user").push().getKey();
-        teacher_data teacher = new teacher_data( uid,username,password, email,usertype, region);
+        teacher_data teacher = new teacher_data(uid, username, email, password, usertype, region);
         Map<String, Object> postValues = teacher.toMap1();
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/Managers-Added/" + key , postValues);
-        childUpdates.put("/Managers-Profile/" + uid + "/" + key, postValues);
-        childUpdates.put("/all-user/" + key , postValues);
-        mDatabase.updateChildren(childUpdates).addOnCompleteListener( new OnCompleteListener<Void>() {
+        childUpdates.put("/Managers-Added/" + key + "/" + uid, postValues);
+        childUpdates.put("/Managers-Profile/" + uid , postValues);
+        childUpdates.put("/auth-user/" + uid, postValues);
+        childUpdates.put("/all-user/" + key, postValues);
+        mDatabase.updateChildren(childUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (!task.isSuccessful()) {
-                    Toast.makeText(Create_Account.this, "Manager not Added" ,
+                    Toast.makeText(Create_Account.this, "Manager not Added",
                             Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(Create_Account.this);
                     builder.setMessage("Manager Added")
                             .setTitle("Welcome to PIES")
                             .setCancelable(false)
-                            .setPositiveButton(android.R.string.ok,new DialogInterface.OnClickListener() {
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     //FirebaseAuth.getInstance().signOut();
                                     mAuth.signOut();
@@ -354,31 +359,32 @@ private Spinner spinner ,spinner1;
         });
 
     }
+
     // [START write_fan_out]
-    private void createAdmin(String u,String user, String email_one, String usertype1) {
+    private void createAdmin(String u, String user, String email_one, String usertype1) {
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
         String key = mDatabase.child("all-user").push().getKey();
-        Admin_data admin = new Admin_data( u,user, email_one,usertype1);
+        Admin_data admin = new Admin_data(u, user, email_one, usertype1);
         Map<String, Object> postValues = admin.toAdmin();
 
         Map<String, Object> childUpdates = new HashMap<>();
-       childUpdates.put("/admin-Added/" + key , postValues);
-        childUpdates.put("/admin-Profile/" + u  , postValues);
-        childUpdates.put("/all-user/" + key + "/" + u , postValues);
-        childUpdates.put("/auth-user/" + u ,postValues);
-        mDatabase.updateChildren(childUpdates).addOnCompleteListener( new OnCompleteListener<Void>() {
+        childUpdates.put("/admin-Added/" + key + "/" + u, postValues);
+        childUpdates.put("/admin-Profile/" + u, postValues);
+        childUpdates.put("/all-user/" + key + "/" + u, postValues);
+        childUpdates.put("/auth-user/" + u, postValues);
+        mDatabase.updateChildren(childUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (!task.isSuccessful()) {
-                    Toast.makeText(Create_Account.this, "Admin not Added" ,
+                    Toast.makeText(Create_Account.this, "Admin not Added",
                             Toast.LENGTH_SHORT).show();
-                }else{
+                } else {
                     AlertDialog.Builder builder = new AlertDialog.Builder(Create_Account.this);
                     builder.setMessage("Admin Added")
                             .setTitle("Welcome to PIES")
                             .setCancelable(false)
-                            .setPositiveButton(android.R.string.ok,new DialogInterface.OnClickListener() {
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     //FirebaseAuth.getInstance().signOut();
                                     mAuth.signOut();
@@ -393,20 +399,10 @@ private Spinner spinner ,spinner1;
                 progressDialog.hide();
 
             }
-        });;
+        });
+        ;
 
     }
-    @Override
-    public void onStart() {
-        super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
-    }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
-    }
+
 }

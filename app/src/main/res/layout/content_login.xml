@@ -32,18 +32,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
+                <ImageView
 
-                    android:background="@drawable/edit_background"
                     android:layout_width="160dp"
                     android:layout_height="70dp"
                     android:gravity="center"
                     android:padding="3dp"
                     android:layout_gravity="center"
-                    android:text="PlatForm"
-                    android:textSize="25sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/colorPrimary"
+                    android:src="@drawable/l"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
                      />
@@ -99,10 +95,12 @@ android:layout_marginBottom="7dp"
                     android:layout_centerHorizontal="true" />
 
                 <TextView
+                    android:id="@+id/forgotpassword"
                     android:layout_marginTop="20dp"
                     android:layout_gravity="center"
                     android:textStyle="bold"
                     android:textColor="#fce4ec"
+                    android:textSize="13sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"

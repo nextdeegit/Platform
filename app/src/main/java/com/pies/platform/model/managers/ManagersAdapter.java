@@ -23,10 +23,10 @@ public class ManagersAdapter extends RecyclerView.Adapter<ManagersAdapter.MyView
 
         public MyViewHolder(View view) {
             super(view);
-            imgItem = (ImageView) view.findViewById(R.id.thumdicon);
-            txtItem = (TextView) view.findViewById(R.id.titleName);
-            numberitem = (TextView) view.findViewById(R.id.number);
-           // description = (TextView) view.findViewById(R.id.description);
+            imgItem = (ImageView) view.findViewById(R.id.thumdicon4);
+            txtItem = (TextView) view.findViewById(R.id.titleName4);
+           // numberitem = (TextView) view.findViewById(R.id.number4);
+            description = (TextView) view.findViewById(R.id.description4);
         }
     }
 
@@ -38,7 +38,7 @@ public class ManagersAdapter extends RecyclerView.Adapter<ManagersAdapter.MyView
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.admin__header_row, parent, false);
+                .inflate(R.layout.manager_header_row, parent, false);
 
         return new MyViewHolder(itemView);
     }
@@ -48,7 +48,7 @@ public class ManagersAdapter extends RecyclerView.Adapter<ManagersAdapter.MyView
         ManagersItem item = moviesList.get(position);
         holder.imgItem.setImageDrawable(item.getThumbNail());
         holder.txtItem.setText(item.getTitleName());
-        holder.numberitem.setText(item.getNumber());
+//        holder.numberitem.setText(item.getNumber());
         holder.description.setText(item.getDescription());
     }
 

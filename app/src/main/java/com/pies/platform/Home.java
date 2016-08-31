@@ -1,10 +1,16 @@
 package com.pies.platform;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -60,7 +66,7 @@ public class Home extends AppCompatActivity {
                     // User is signed in
 //                    Log.d(TAG, "onAuthStateChanged:signed_in:" + mFirebaseUser.getUid());
                     String test =  mFirebaseUser.getUid();
-                    Toast.makeText(Home.this,test, Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(Home.this,test, Toast.LENGTH_SHORT).show();
                     // createAdmin("","Paul","edakndk@gmail.com", "cagjagkcjgak","Admin");
                 }else{
 
@@ -86,7 +92,7 @@ public class Home extends AppCompatActivity {
         recyclerView2.setHasFixedSize(true);
         recyclerView2.addItemDecoration(new DividerItemDecoration(getApplicationContext(), LinearLayoutManager.VERTICAL));
 
-        recyclerView2.setAdapter(mAdapter);
+
         recyclerView2.addOnItemTouchListener(new Admin_dashboard.RecyclerTouchListener(getApplicationContext(), recyclerView2, new Admin_dashboard.ClickListener() {
             @Override
             public void onClick(View view, int position) {
@@ -105,17 +111,18 @@ public class Home extends AppCompatActivity {
 
             }
         }));
-        prepareMovieData();
+new Ui().execute();
+
     }
 
     private void prepareMovieData() {
-        Admin_Item manager = new Admin_Item("Dashboard", "","Click to Perform More Task ", getResources().getDrawable(R.drawable.ic_dns_black_24dp));
+        Admin_Item manager = new Admin_Item("Dashboard", "","Click to Perform More Task ", getResources().getDrawable(R.drawable.y));
         movieList.add(manager);
 
-        manager = new Admin_Item("News Feeds","", " Get Lastest News Update", getResources().getDrawable(R.drawable.ic_dns_black_24dp));
+        manager = new Admin_Item("News Feeds","", " Get Lastest News Update", getResources().getDrawable(R.drawable.fd));
         movieList.add(manager);
 
-        manager = new Admin_Item("Contact Us","", "Send us your Suggestions and Questions ", getResources().getDrawable(R.drawable.ic_dns_black_24dp));
+        manager = new Admin_Item("Contact Us","", "Send us your Suggestions and Questions ", getResources().getDrawable(R.drawable.c));
         movieList.add(manager);
 
         mAdapter.notifyDataSetChanged();
@@ -140,6 +147,7 @@ public class Home extends AppCompatActivity {
         if (id == R.id.signout) {
 
             FirebaseAuth.getInstance().signOut();
+            finish();
         return true;
         }
 
@@ -150,6 +158,22 @@ public class Home extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         mAuth.addAuthStateListener(mAuthListener);
+        if(!isNetworkAvailable()){
+            AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
+            builder.setMessage("Failure to connect to the internet, please check your network connection")
+                    .setTitle("No Network Connection")
+                    .setCancelable(false)
+                    .setIcon(R.drawable.ic_error_black_24dp)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //FirebaseAuth.getInstance().signOut();
+                         finish();
+
+                        }
+                    });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }
     }
 
     @Override
@@ -157,6 +181,30 @@ public class Home extends AppCompatActivity {
         super.onStop();
         if (mAuthListener != null) {
             mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+    public boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+
+    private class Ui extends AsyncTask<Void,Void,Void>{
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+
+
+            prepareMovieData();
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            recyclerView2.setAdapter(mAdapter);
         }
     }
 }

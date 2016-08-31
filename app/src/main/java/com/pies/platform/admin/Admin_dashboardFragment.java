@@ -36,6 +36,7 @@ import com.pies.platform.admin.model.AdminAdapter;
 import com.pies.platform.admin.model.Admin_Item;
 import com.pies.platform.admin.model.Admin_data;
 import com.pies.platform.admin.model.imageData;
+import com.pies.platform.custom.DividerItemDecoration;
 import com.pies.platform.custom.RoundFormation;
 import com.pies.platform.model_users.Users;
 import com.pies.platform.teachersActivity.Assignment;
@@ -79,6 +80,39 @@ public class Admin_dashboardFragment extends Fragment {
         tName = (TextView) root.findViewById(R.id.admin_name);
         tEmail = (TextView) root.findViewById(R.id.admin_email);
 
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                mFirebaseUser = firebaseAuth.getCurrentUser();
+                if (mFirebaseUser == null) {
+                    // User is signed in
+//                    Log.d(TAG, "onAuthStateChanged:signed_in:" + mFirebaseUser.getUid());
+                    startActivity(new Intent(getActivity(), Login.class));
+                }
+                else{ String n = mFirebaseUser.getEmail();
+                    tEmail.setText(n);
+                    Toast.makeText(getActivity(), mFirebaseUser.getUid().toString(), Toast.LENGTH_SHORT).show();
+                    String url = mFirebaseUser.getUid().toString();
+                    checkUser(url);
+                    if( mFirebaseUser.getPhotoUrl() != null){
+                        String thumb = mFirebaseUser.getPhotoUrl().toString();
+                        setprofileImage(thumb);
+                    }
+                    if(mFirebaseUser == null){
+                        profileUpdate(aNam);
+                        String nM = mFirebaseUser.getDisplayName().toString();
+                        tName.setText(aNam);
+
+                    }
+                    else if (mFirebaseUser.getDisplayName() != null){
+                        String m = mFirebaseUser.getDisplayName().toString();
+                        tName.setText(aNam);
+                    }
+
+                }
+            }};
+
         CardView cardView = (CardView) root.findViewById(R.id.layer1);
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,10 +133,10 @@ public class Admin_dashboardFragment extends Fragment {
         recyclerView2 = (RecyclerView) root.findViewById(R.id.recycler_admin);
         mAdapter = new AdminAdapter(movieList);
        // RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity(), 2);
-        recyclerView2.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        recyclerView2.setLayoutManager(new GridLayoutManager(getActivity(), 1));
         recyclerView2.setItemAnimator(new DefaultItemAnimator());
         recyclerView2.setHasFixedSize(true);
-        //recyclerView2.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
+        recyclerView2.addItemDecoration(new DividerItemDecoration(getActivity(), LinearLayoutManager.VERTICAL));
         setHasOptionsMenu(true);
         recyclerView2.setAdapter(mAdapter);
         recyclerView2.addOnItemTouchListener(new Admin_dashboard.RecyclerTouchListener(getActivity(), recyclerView2, new Admin_dashboard.ClickListener() {
@@ -115,6 +149,9 @@ public class Admin_dashboardFragment extends Fragment {
                 }
                 else if(position == 1){
                     startActivity(new Intent(getActivity(), Assignment.class));
+                }
+                else if(position == 2){
+                    startActivity(new Intent(getActivity(), MapsActivity.class));
                 }
                 //Toast.makeText(getApplicationContext(), movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
             }
@@ -131,13 +168,13 @@ prepareMovieData();
     }
 
     private void prepareMovieData() {
-        Admin_Item manager = new Admin_Item("Registration", "12","", getResources().getDrawable(R.drawable.user_added));
+        Admin_Item manager = new Admin_Item("Registration", "12","adding new personnel", getResources().getDrawable(R.drawable.ic_person_add_black_24dp));
         movieList.add(manager);
 
-        manager = new Admin_Item("Assign a Task","", "", getResources().getDrawable(R.drawable.assign_icon));
+        manager = new Admin_Item("Assign a Task","", "task to be assign", getResources().getDrawable(R.drawable.assign_icon));
         movieList.add(manager);
 
-        manager = new Admin_Item("New Home","", "", getResources().getDrawable(R.drawable.home_icon));
+        manager = new Admin_Item("New Home","", "registration of new homes", getResources().getDrawable(R.drawable.home_icon));
         movieList.add(manager);
 
         mAdapter.notifyDataSetChanged();
@@ -147,33 +184,6 @@ prepareMovieData();
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                mFirebaseUser = firebaseAuth.getCurrentUser();
-                if (mFirebaseUser == null) {
-                    // User is signed in
-//                    Log.d(TAG, "onAuthStateChanged:signed_in:" + mFirebaseUser.getUid());
-                    startActivity(new Intent(getActivity(), Login.class));
-                }
-                else{ String n = mFirebaseUser.getEmail();
-                    tEmail.setText(n);
-                    Toast.makeText(getActivity(), mFirebaseUser.getUid().toString(), Toast.LENGTH_SHORT).show();
-                    String url = mFirebaseUser.getUid().toString();
-                    checkUser(url);
-                    if( mFirebaseUser.getPhotoUrl() != null){
-                        String thumb = mFirebaseUser.getPhotoUrl().toString();
-                        setprofileImage(thumb);
-                    }
-                   if(mFirebaseUser == null){
-                       profileUpdate(aNam);
-                   }
-                    else if (mFirebaseUser.getDisplayName() != null){
-                        tName.setText(mFirebaseUser.getDisplayName().toString());
-                    }
-
-                }
-            }};
 
 
     }
@@ -182,7 +192,7 @@ prepareMovieData();
                 .load(imageurl)
                 .placeholder(R.drawable.ic_account_circle_black_24dp)
                 .error(R.drawable.ic_account_circle_black_24dp)
-                .transform(new RoundFormation(50, 4))
+                .transform(new RoundFormation(50, 20))
                 //.resizeDimen(R.dimen.list_detail_image_size, R.dimen.list_detail_image_size)
                 .into(adminImage);
     }
@@ -202,18 +212,23 @@ prepareMovieData();
 
     public void checkUser(String uid) {
 
-        mDatabase.child(uid).addValueEventListener(new ValueEventListener() {
+        mDatabase.child("admin-Profile").child(uid).addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
      Admin_data item = dataSnapshot.getValue(Admin_data.class);
-               aNam = item.getName();
+                if(item.getName() != null){
+                    aNam = item.getName();
+                    Toast.makeText(getActivity(), aNam, Toast.LENGTH_SHORT).show();
+                    tName.setText(aNam);
+                }
+
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Toast.makeText(getActivity(), "url not founded", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "url not founded", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -9,16 +9,16 @@ import java.util.Map;
  * Created by Nsikak  Thompson on 7/13/2016.
  */
 public class teacher_data {
-    String name;
+  public  String name;
     String email;
     String password;
     String photoUrl ="";
-    String uid;
+  public   String uid;
     String region;
     String userType;
-    String home1 ="";
-    String home2 = "";
-    String home3 ="";
+  public  String home1 ="";
+    public String home2 = "";
+    public String home3 ="";
 
     public teacher_data(){
 

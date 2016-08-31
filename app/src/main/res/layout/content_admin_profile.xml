@@ -38,13 +38,13 @@
 
             <TextView
             android:drawableRight="@drawable/ic_create_black_24dp"
-            android:textColor="#727272"
-            android:textSize="20sp"
+            android:textColor="#212121"
+            android:textSize="14sp"
                 android:id="@+id/username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
           android:padding="10dp"
-            android:text="Nsikak Thompson"/>
+         />
 
         </LinearLayout>
     </android.support.v7.widget.CardView>
@@ -72,15 +72,15 @@
 
             <TextView
                 android:id="@+id/user_email"
-                android:textColor="#727272"
-                android:textSize="20sp"
+                android:textColor="#212121"
+                android:textSize="14sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:text="example@gmail.com"/>
+              />
             <TextView
-                android:textColor="#727272"
-                android:textSize="20sp"
+                android:textColor="#212121"
+                android:textSize="14sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="10dp"

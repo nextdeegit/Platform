@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:fillViewport="true"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_marginTop="50dp"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.pies.platform.teachersActivity.Feedback"
+    tools:showIn="@layout/activity_feedback">
+
+
+    <android.support.v7.widget.CardView
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="9dp">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_margin="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginBottom="4dp"
+                    android:textColor="#212121"
+                    android:textSize="18sp"
+                    android:id="@+id/one"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Was the tutor in class?"/>
+                <RadioGroup
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                         android:layout_below="@+id/one"
+                        android:layout_height="20dp"
+                    android:orientation="horizontal" >
+
+
+                    <RadioButton
+                        android:id="@+id/one_yes"
+                        android:textColor="#727272"
+                        android:text="Yes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                <RadioButton
+                    android:textColor="#727272"
+                    android:layout_marginRight="3dp"
+                    android:id="@+id/one_no"
+                    android:text="No"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+                </RadioGroup>
+                <View
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/button"
+                    android:background="#BDBDBD"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_margin="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginBottom="4dp"
+                    android:textColor="#212121"
+                    android:textSize="18dp"
+                    android:id="@+id/two"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Does the student understand the principle ?"/>
+                <RadioGroup
+                    android:id="@+id/button2"
+                    android:layout_width="wrap_content"
+                  android:layout_below="@+id/two"
+                    android:layout_height="20dp"
+                    android:orientation="horizontal" >
+
+
+                    <RadioButton
+                        android:id="@+id/two_agree"
+                        android:textColor="#727272"
+                        android:text="Agree"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:id="@+id/two_maybe"
+                        android:textColor="#727272"
+                        android:layout_marginRight="3dp"
+                        android:text="maybe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:id="@+id/two_disagree"
+                        android:textColor="#727272"
+                        android:layout_marginRight="3dp"
+                        android:text="disaggree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                </RadioGroup>
+                <View
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/button2"
+                    android:background="#BDBDBD"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_margin="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginBottom="4dp"
+                    android:textColor="#212121"
+                    android:textSize="18dp"
+                    android:id="@+id/three"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Can the student tackle the questions by themselves?"/>
+                <RadioGroup
+                    android:id="@+id/button3"
+                    android:layout_width="wrap_content"
+                    android:layout_below="@+id/three"
+                    android:layout_height="20dp"
+                    android:orientation="horizontal" >
+
+
+                    <RadioButton
+                        android:id="@+id/three_agree"
+                        android:textColor="#727272"
+                        android:text="Agree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:id="@+id/three_maybe"
+                        android:textColor="#727272"
+                        android:layout_marginRight="3dp"
+                        android:text="maybe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:id="@+id/three_disagree"
+                        android:textColor="#727272"
+                        android:layout_marginRight="3dp"
+                        android:text="disaggree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                </RadioGroup>
+                <View
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/button3"
+                    android:background="#BDBDBD"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_margin="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginBottom="4dp"
+                    android:textColor="#212121"
+                    android:textSize="18dp"
+                    android:id="@+id/four"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Was there an assignment given on this topic?"/>
+                <RadioGroup
+                    android:id="@+id/button4"
+                    android:layout_width="wrap_content"
+                    android:layout_below="@+id/four"
+                    android:layout_height="20dp"
+                    android:orientation="horizontal" >
+
+
+                    <RadioButton
+                        android:id="@+id/four_agree"
+                        android:textColor="#727272"
+                        android:text="Agree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:id="@+id/four_maybe"
+                        android:textColor="#727272"
+                        android:layout_marginRight="3dp"
+                        android:text="maybe"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:id="@+id/four_disagreee"
+                        android:textColor="#727272"
+                        android:layout_marginRight="3dp"
+                        android:text="disaggree"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+                </RadioGroup>
+                <View
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/button4"
+                    android:background="#BDBDBD"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_margin="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginBottom="4dp"
+                    android:textColor="#212121"
+                    android:textSize="18dp"
+                    android:id="@+id/five"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Was there class work today ?"/>
+                <RadioGroup
+                    android:id="@+id/button5"
+                    android:layout_width="wrap_content"
+                    android:layout_below="@+id/five"
+                    android:layout_height="20dp"
+                    android:orientation="horizontal" >
+
+
+                    <RadioButton
+                        android:id="@+id/five_yes"
+                        android:textColor="#727272"
+                        android:text="Yes "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:id="@+id/five_no"
+                        android:textColor="#727272"
+                        android:layout_marginRight="3dp"
+                        android:text="no"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+
+                </RadioGroup>
+                <View
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/button5"
+                    android:background="#BDBDBD"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/layer"
+                android:layout_margin="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginBottom="4dp"
+                    android:textColor="#212121"
+                    android:textSize="18dp"
+                    android:id="@+id/six"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="how many? "/>
+               <EditText
+
+                   android:padding="10dp"
+                  android:textSize="10dp"
+                   android:hint="Numbers of Home Work"
+                   android:id="@+id/number"
+                   android:layout_below="@+id/six"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content" />
+                <View
+                    android:layout_marginTop="4dp"
+                    android:layout_below="@+id/number"
+                    android:background="#BDBDBD"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_margin="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginBottom="4dp"
+                    android:textColor="#212121"
+                    android:textSize="18dp"
+                    android:id="@+id/seven"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Was there any issue with regards to the class?"/>
+                <RadioGroup
+                    android:id="@+id/button7"
+                    android:layout_width="wrap_content"
+                    android:layout_below="@+id/seven"
+                    android:layout_height="20dp"
+                    android:orientation="horizontal" >
+
+
+                    <RadioButton
+                        android:id="@+id/seven_yes"
+                        android:textColor="#727272"
+                        android:text="Yes "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <RadioButton
+                        android:id="@+id/seven_no"
+                        android:textColor="#727272"
+                        android:layout_marginRight="3dp"
+                        android:text="no"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+
+
+                </RadioGroup>
+                <View
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@+id/button7"
+                    android:background="#BDBDBD"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/it"
+                android:layout_margin="7dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginBottom="4dp"
+                    android:textColor="#212121"
+                    android:textSize="18dp"
+                    android:id="@+id/eight"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="If yes what was it?"/>
+                <EditText
+
+                    android:padding="10dp"
+                    android:textSize="10dp"
+                    android:hint="Numbers of Home Work"
+                    android:id="@+id/issue"
+                    android:layout_below="@+id/eight"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <View
+                    android:layout_marginTop="4dp"
+                    android:layout_below="@+id/issue"
+                    android:background="#BDBDBD"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"/>
+            </RelativeLayout>
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_margin="7dp"
+                android:textColor="#fff"
+                android:background="@color/colorAccent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="SUBMIT"/>
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+</RelativeLayout>
+</ScrollView>
