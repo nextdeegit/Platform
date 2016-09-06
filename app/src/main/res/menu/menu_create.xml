@@ -1,10 +1,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".admin.Admin_dashboard">
+    tools:context=".teachersActivity.Create_Obj">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/save"
         android:orderInCategory="100"
-        android:title="Log Out"
-        app:showAsAction="never" />
+        android:title="Save"
+        android:icon="@drawable/ic_send_black_24dp"
+        app:showAsAction="ifRoom" />
 </menu>

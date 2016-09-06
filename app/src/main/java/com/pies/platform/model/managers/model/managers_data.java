@@ -9,7 +9,7 @@ import java.util.Map;
  * Created by Nsikak  Thompson on 7/13/2016.
  */
 public class managers_data {
-    String name;
+   public String name;
     String email;
     String password;
     String photoUrl;

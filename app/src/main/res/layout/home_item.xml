@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
-
+            android:src="@drawable/c"
             android:scaleType="centerInside"
             android:id="@+id/thumdicon1"
             android:layout_width="70dp"
@@ -28,11 +28,14 @@
             android:layout_height="wrap_content"
             android:text="Add a Teacher"/>
         <TextView
+            android:padding="5dp"
+            android:background="@drawable/alert_background"
             android:textColor="@color/colorAccent"
             android:id="@+id/number1"
+            android:textSize="13dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="12"
+            android:text="Coming Soon"
 
             android:layout_alignTop="@+id/titleName1"
             android:layout_alignParentRight="true"

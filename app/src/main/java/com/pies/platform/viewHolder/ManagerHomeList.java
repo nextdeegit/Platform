@@ -1,5 +1,7 @@
 package com.pies.platform.viewHolder;
 
+import android.content.Context;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
@@ -18,7 +20,8 @@ public class ManagerHomeList extends RecyclerView.ViewHolder {
 
     public TextView tname;
     public TextView temail, region, index;
-    public ImageView thumnial;
+    public ImageView thumnial,popup;
+    Context act;
 
     public ManagerHomeList(View itemView) {
         super(itemView);
@@ -28,10 +31,12 @@ public class ManagerHomeList extends RecyclerView.ViewHolder {
         thumnial = (ImageView) itemView.findViewById(R.id.teacher_image_list);
         region = (TextView) itemView.findViewById(R.id.teacher_region);
         index = (TextView) itemView.findViewById(R.id.textView3);
+        popup = (ImageView) itemView.findViewById(R.id.pop_up);
 
     }
 
     public void bindToPost(Add_Home_item post, View.OnClickListener starClickListener) {
+
         if(post.getName() != null){
             String n = post.getName();
             String first = n.substring(0,1);
@@ -42,7 +47,11 @@ public class ManagerHomeList extends RecyclerView.ViewHolder {
         temail.setText(post.getPhone());
         region.setText(post.getAddress());
 
+popup.setOnClickListener(starClickListener);
 
-        //starView.setOnClickListener(starClickListener);
+
+
+
     }
+
 }

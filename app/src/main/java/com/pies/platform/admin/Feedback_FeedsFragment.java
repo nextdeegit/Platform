@@ -144,63 +144,64 @@ public class Feedback_FeedsFragment extends Fragment {
         protected Void doInBackground(Void... voids) {
 
 
+    if(!Objandfeedback.name.isEmpty()){
+        Query postsQuery = getQuery(mDatabase,Objandfeedback.name);
+        mAdapter = new FirebaseRecyclerAdapter<Feedback_item, FeedbackListViewholder>(Feedback_item.class, R.layout.feedback_list,
+                FeedbackListViewholder.class, postsQuery) {
+            @Override
+            protected void populateViewHolder(final FeedbackListViewholder viewHolder, final Feedback_item model, final int position) {
+                final DatabaseReference postRef = getRef(position);
+
+                // Set click listener for the whole post view
+                //  postKey = postRef.getKey();
 
 
-            Query postsQuery = getQuery(mDatabase,Objandfeedback.name);
-            mAdapter = new FirebaseRecyclerAdapter<Feedback_item, FeedbackListViewholder>(Feedback_item.class, R.layout.feedback_list,
-                    FeedbackListViewholder.class, postsQuery) {
-                @Override
-                protected void populateViewHolder(final FeedbackListViewholder viewHolder, final Feedback_item model, final int position) {
-                    final DatabaseReference postRef = getRef(position);
-
-                    // Set click listener for the whole post view
-                    //  postKey = postRef.getKey();
-
-                 if(  mAdapter.getItemCount() == 0){
-            onPostUploaded("ggk");
-                 }
-                    viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            // Launch PostDetailActivity
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // Launch PostDetailActivity
 
 
-                            Intent intent = new Intent(getActivity(), Feedbackdetails.class);
-                            intent.putExtra("author", model.getAuthor());
-                            intent.putExtra("time",model.getTime());
-                            intent.putExtra("f1", model.getFb1());
-                            intent.putExtra("f2", model.getFb2());
-                            intent.putExtra("f3", model.getFb3());
-                            intent.putExtra("f4", model.getFb4());
-                            intent.putExtra("f5", model.getFb5());
-                            intent.putExtra("f6", model.getFb6());
-                            intent.putExtra("f7", model.getFb7());
-                            intent.putExtra("f8", model.getFb8());
-                            intent.putExtra("rm1", model.getRm1());
-                            intent.putExtra("rm2", model.getRm2());
-                            intent.putExtra("rm3", model.getRm3());
-                            intent.putExtra("rm4", model.getRm4());
-                            intent.putExtra("rm5", model.getRm5());
-                            intent.putExtra("rm6", model.getRm6());
-                            intent.putExtra("rm7", model.getRm7());
-                            intent.putExtra("rm8", model.getRm8());
+                        Intent intent = new Intent(getActivity(), Feedbackdetails.class);
+                        intent.putExtra("author", model.getAuthor());
+                        intent.putExtra("time",model.getTime());
+                        intent.putExtra("f1", model.getFb1());
+                        intent.putExtra("f2", model.getFb2());
+                        intent.putExtra("f3", model.getFb3());
+                        intent.putExtra("f4", model.getFb4());
+                        intent.putExtra("f5", model.getFb5());
+                        intent.putExtra("f6", model.getFb6());
+                        intent.putExtra("f7", model.getFb7());
+                        intent.putExtra("f8", model.getFb8());
+                        intent.putExtra("rm1", model.getRm1());
+                        intent.putExtra("rm2", model.getRm2());
+                        intent.putExtra("rm3", model.getRm3());
+                        intent.putExtra("rm4", model.getRm4());
+                        intent.putExtra("rm5", model.getRm5());
+                        intent.putExtra("rm6", model.getRm6());
+                        intent.putExtra("rm7", model.getRm7());
+                        intent.putExtra("rm8", model.getRm8());
+                        intent.putExtra("feed_key", postRef.getKey().toString());
 
-                            // intent.putExtra("uid", userId);
+                        // intent.putExtra("uid", userId);
 
-                            startActivity(intent);
-                            // Toast.makeText(Teachers.this, model.getName(), Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                    viewHolder.bindToPost(model, new View.OnClickListener() {
-                        @Override
-                        public void onClick(View starView) {
+                        startActivity(intent);
+                        // Toast.makeText(Teachers.this, model.getName(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+                viewHolder.bindToPost(model, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View starView) {
 
-                        }
-                    });
+                    }
+                });
 
 
-                }
-            };
+            }
+        };
+
+
+    }
 
 
             return null;

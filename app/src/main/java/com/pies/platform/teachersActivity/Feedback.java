@@ -43,11 +43,18 @@ public class Feedback extends AppCompatActivity {
     String fb7 = "Was there any issue with regards to the class?";
     String fb8 = "If yes what was it?";
 
-    String rm1,rm2,rm3,rm4,rm5,rm6,rm7,rm8,name;
+    String rm6,rm8,name;
+    String rm1 = "";
+    String rm2 = "";
+    String rm3 = "";
+    String rm4 = "";
+    String rm5 = "";
+    String rm7 = "";
     RadioGroup radioGroup;
     EditText number,issue;
     Button submit;
- RelativeLayout relativeLayout;
+    String nHome = "";
+    RelativeLayout relativeLayout;
     //relativeLayout.setVisibility(View.GONE);
     RelativeLayout relativeLayout1;
     // relativeLayout1.setVisibility(View.GONE);
@@ -169,11 +176,10 @@ public class Feedback extends AppCompatActivity {
                 Toast.makeText(Feedback.this, rm7, Toast.LENGTH_SHORT).show();
             }
         });
-
         submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String nHome = number.getText().toString();
+                nHome = number.getText().toString();
                 String isHome = issue.getText().toString();
                 long msTime = System.currentTimeMillis();
                 Date date = new Date(msTime);
@@ -184,14 +190,12 @@ public class Feedback extends AppCompatActivity {
                 String time =sdf1.format(date);
                 String formattedDate = sdf.format(date);
 
-                if(rm1 =="null"){
-                    Toast.makeText(Feedback.this, "done", Toast.LENGTH_SHORT).show();
-                }
 
-               /* if(rm1=="" || rm2 =="" || rm3 =="" || rm4 =="" || rm5 ==""){
+
+                if(rm1=="" || rm2 =="" || rm3 =="" || rm4 =="" || rm5 ==""){
                     Toast.makeText(Feedback.this, "Incomplete information set!", Toast.LENGTH_SHORT).show();
                 }
-               else if(rm5 == "Yes" && nHome ==""){
+               else if(rm5.equals("Yes") && nHome.isEmpty()){
 
                         number.setError("Add number of network");
 
@@ -202,17 +206,19 @@ public class Feedback extends AppCompatActivity {
                 }
                 else{
                     progressDialog.show();
-                  //  createFeedback(day,time,formattedDate,name,key,fb1,fb2,fb3,fb4,fb5,fb6,fb7,fb8,rm1,rm2,rm3,rm4,rm5,nHome,rm7,isHome);
+                   createFeedback(day,time,formattedDate,name,key,fb1,fb2,fb3,fb4,fb5,fb6,fb7,fb8,rm1,rm2,rm3,rm4,rm5,nHome,rm7,isHome);
                 }
 
 
-*/
+
             }
         });
 
 
 
     }
+
+
     // [START write_fan_out]
     private void createFeedback(String day,String time,String date,String author,String homekey,final String fb1, String fb2, String fb3, String fb4, String fb5, String fb6,String fb7, String fb8,String rm1, String rm2, String rm3, String rm4, String rm5, String rm6,String rm7, String rm8) {
 

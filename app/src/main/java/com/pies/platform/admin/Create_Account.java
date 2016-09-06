@@ -326,7 +326,7 @@ public class Create_Account extends AppCompatActivity implements AdapterView.OnI
         Map<String, Object> postValues = teacher.toMap1();
 
         Map<String, Object> childUpdates = new HashMap<>();
-        childUpdates.put("/Managers-Added/" + key + "/" + uid, postValues);
+        childUpdates.put("/Managers-Added/" + key, postValues);
         childUpdates.put("/Managers-Profile/" + uid , postValues);
         childUpdates.put("/auth-user/" + uid, postValues);
         childUpdates.put("/all-user/" + key, postValues);

@@ -66,6 +66,7 @@ public class Home extends AppCompatActivity {
                     // User is signed in
 //                    Log.d(TAG, "onAuthStateChanged:signed_in:" + mFirebaseUser.getUid());
                     String test =  mFirebaseUser.getUid();
+
                   //  Toast.makeText(Home.this,test, Toast.LENGTH_SHORT).show();
                     // createAdmin("","Paul","edakndk@gmail.com", "cagjagkcjgak","Admin");
                 }else{
@@ -103,6 +104,21 @@ public class Home extends AppCompatActivity {
                 else if(position == 1){
 
                 }
+                else if (position== 2){
+                    AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
+                    builder.setMessage("You can contact us via this email address  aniekanpaul@gmail.com"  )
+                            .setTitle("Contact")
+                            .setCancelable(false)
+                            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    //FirebaseAuth.getInstance().signOut();
+                                  dialog.dismiss();
+                                }
+                            });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+
+                }
                 //Toast.makeText(getApplicationContext(), movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
             }
 
@@ -119,7 +135,7 @@ new Ui().execute();
         Admin_Item manager = new Admin_Item("Dashboard", "","Click to Perform More Task ", getResources().getDrawable(R.drawable.y));
         movieList.add(manager);
 
-        manager = new Admin_Item("News Feeds","", " Get Lastest News Update", getResources().getDrawable(R.drawable.fd));
+        manager = new Admin_Item("News Feeds","Coming Soon", " Get Lastest News Update", getResources().getDrawable(R.drawable.fd));
         movieList.add(manager);
 
         manager = new Admin_Item("Contact Us","", "Send us your Suggestions and Questions ", getResources().getDrawable(R.drawable.c));

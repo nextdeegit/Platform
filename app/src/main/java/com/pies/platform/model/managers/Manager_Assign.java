@@ -170,6 +170,6 @@ public class Manager_Assign extends android.support.v4.app.Fragment {
         // Query recentPostsQuery = databaseReference.child("Teachers-Added").child("SPUE1xO0JbTaXUqM80xPmszCUIK2");
         // [END recent_posts_query]
         ;
-        return databaseReference.child("Teachers-Added");
+        return databaseReference.child("Managers-Added");
     }
 }

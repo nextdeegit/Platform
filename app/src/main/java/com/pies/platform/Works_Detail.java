@@ -98,6 +98,7 @@ private String teacherkey;
 
 
        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        collapsingToolbarLayout.setTitle("");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

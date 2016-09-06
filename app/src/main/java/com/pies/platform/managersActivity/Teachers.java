@@ -14,8 +14,10 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
@@ -34,6 +36,7 @@ import com.pies.platform.R;
 import com.pies.platform.Works_Detail;
 import com.pies.platform.admin.Feedback_FeedsFragment;
 import com.pies.platform.admin.model.Add_Home_item;
+import com.pies.platform.teachersActivity.Create_Obj;
 import com.pies.platform.teachersActivity.model.teacher_data;
 import com.pies.platform.viewHolder.ManagerHomeList;
 import com.pies.platform.viewHolder.TeacherListViewHolder;
@@ -56,7 +59,9 @@ public class Teachers extends AppCompatActivity {
     Dialog dialog;
     ArrayAdapter<String> adapter;
     ListView list;
+
     Bundle bundle;
+   
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +88,9 @@ public class Teachers extends AppCompatActivity {
                 mNotificationManager.notify(0, mBuilder.build());
             }
         });
+
+
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
@@ -92,6 +100,9 @@ public class Teachers extends AppCompatActivity {
          list = (ListView)dialog.findViewById(R.id.listExample);
         dialog.setTitle("Heart attack and shock");
         dialog.setCancelable(true);
+
+
+
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
         new updater().execute();
@@ -142,7 +153,7 @@ public class Teachers extends AppCompatActivity {
                 // Set click listener for the whole post view
               //  postKey = postRef.getKey();
 
-                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+               /* viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         // Launch PostDetailActivity
@@ -152,25 +163,60 @@ public class Teachers extends AppCompatActivity {
                         bundle.putString("teachername", model.getName());
                       // frag.setArguments(bundle);
 
-                        Intent intent = new Intent(getApplicationContext(), Objandfeedback.class);
+                      *//*  Intent intent = new Intent(getApplicationContext(), Objandfeedback.class);
                         intent.putExtras(bundle);
                        // intent.putExtra("uid", userId);
 
-                        startActivity(intent);
+                        startActivity(intent);*//*
 
                      //   Toast.makeText(Teachers.this, model.getName(), Toast.LENGTH_SHORT).show();
                     }
-                });
+                });*/
+                try {
+
                 viewHolder.bindToPost(model, new View.OnClickListener() {
                     @Override
-                    public void onClick(View starView) {
+                    public void onClick(View v) {
+                    PopupMenu pop_up = new PopupMenu(getBaseContext(), v);
+
+                        pop_up.getMenuInflater().inflate(R.menu.menu_popup, pop_up.getMenu());
+                        pop_up.show();
 
                     }
                 });
+                } catch (Exception e) {
+
+                    e.printStackTrace();
+                }
 
 
             }
         };
+
+    }
+
+    public void  pop(View v){
+        PopupMenu pop_up = new PopupMenu(getApplicationContext(), v);
+
+        pop_up.getMenuInflater().inflate(R.menu.menu_popup, pop_up.getMenu());
+        pop_up.show();
+        pop_up.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int i = item.getItemId();
+                if (i == R.id.obj) {
+                    //do something
+                    startActivity(new Intent(getApplicationContext(), Create_Obj.class));
+                    return true;
+                } else if (i == R.id.feedback) {
+                    //do something
+                    startActivity(new Intent(getApplicationContext(), Create_Obj.class));
+                }
+                return onMenuItemClick(item);
+
+            }
+        });
+
 
     }
     public Query getQuery(DatabaseReference databaseReference) {

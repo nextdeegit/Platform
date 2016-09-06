@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
     android:background="#eeeeee"
     tools:context=".teachersActivity.Teachers_DashboardFragment"
     tools:showIn="@layout/activity_teachers__dashboard">
@@ -22,4 +23,14 @@
         tools:listitem="@layout/teacher_header_row"
         >
     </android.support.v7.widget.RecyclerView>
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
+
 </RelativeLayout>

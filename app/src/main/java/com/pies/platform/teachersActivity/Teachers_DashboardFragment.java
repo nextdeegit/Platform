@@ -16,6 +16,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -70,6 +72,10 @@ public class Teachers_DashboardFragment extends Fragment {
 
 
 
+
+        AdView mAdView = (AdView) root.findViewById(R.id.adView1);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         tName = (TextView) root.findViewById(R.id.teacher_name);
         tEmail = (TextView) root.findViewById(R.id.teacher_email);
         t_index = (TextView) root.findViewById(R.id.t_index);
@@ -103,8 +109,8 @@ public class Teachers_DashboardFragment extends Fragment {
                     startActivity(intent);
                     // myRootref.child("all-users").setValue("meeeeeee");
                 }
-                else if(position == 2){
-
+                else if(position == 0){
+                startActivity(new Intent(getActivity(), Create_Obj.class));
                 }
                 //Toast.makeText(getApplicationContext(), movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
             }

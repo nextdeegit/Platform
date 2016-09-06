@@ -15,6 +15,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -57,6 +60,12 @@ public class Manager_Dashboard extends AppCompatActivity {
         setSupportActionBar(toolbar);
         mFirebaseAuth = FirebaseAuth.getInstance();
 
+
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-7849997962870392~2971528267");
+
+        AdView mAdView = (AdView) findViewById(R.id.adView2);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
         tName = (TextView) findViewById(R.id.manager_name);
         tEmail = (TextView)findViewById(R.id.manager_email);
         t_index = (TextView) findViewById(R.id.textView2);

@@ -8,4 +8,5 @@
 
     <color name="medium_grey">#9E9E9E</color>
     <color name="green">#009688</color>
+    <color name="divider">#BDBDBD</color>
 </resources>

@@ -51,7 +51,14 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder> 
         Admin_Item item = moviesList.get(position);
         holder.imgItem.setImageDrawable(item.getThumbNail());
         holder.txtItem.setText(item.getTitleName());
-        holder.numberitem.setText(item.getNumber());
+        if(item.getNumber() == ""){
+            holder.numberitem.setVisibility(View.GONE);
+
+        }
+
+        else{
+            holder.numberitem.setText(item.getNumber());
+        }
         holder.description.setText(item.getDescription());
     }
 

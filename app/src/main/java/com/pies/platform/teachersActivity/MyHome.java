@@ -79,7 +79,11 @@ public class MyHome extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     private ArrayList<Add_Home_item> movieList = new ArrayList<>();
     private Teacher_Assigned_Home mAdapter;
-    String home1,home2,home3, hom1lat, hom1long;
+    String home1 ="";
+
+    String home2 ="";
+    String home3 = "";
+    String hom1lat, hom1long;
     Teacher_Assigned_Home.MyViewHolder hv;
     Add_Home_item a;
    public String provider,name;
@@ -102,6 +106,7 @@ public class MyHome extends AppCompatActivity {
             updateList3();
             Toast.makeText(MyHome.this, home1, Toast.LENGTH_SHORT).show();
         }
+
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Your GPS seems to be disabled, do you want to enable it?")
                 .setCancelable(false)

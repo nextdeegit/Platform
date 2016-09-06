@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.google.android.gms.ads.MobileAds;
 import com.pies.platform.R;
 
 public class Teachers_Dashboard extends AppCompatActivity {
@@ -18,6 +19,7 @@ public class Teachers_Dashboard extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-7849997962870392~2971528267");
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

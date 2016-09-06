@@ -17,6 +17,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.ads.mediation.admob.AdMobAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.pies.platform.Login;
@@ -31,6 +35,7 @@ public class Admin_dashboard extends AppCompatActivity {
     private String teacherNam, teacherEmail;
 private  ImageView adminImage;
     private FirebaseAuth.AuthStateListener mAuthListener;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +44,7 @@ private  ImageView adminImage;
         setSupportActionBar(toolbar);
 
 
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-7849997962870392~2971528267");
 
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -116,7 +122,7 @@ private  ImageView adminImage;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_login, menu);
+        getMenuInflater().inflate(R.menu.menu_admin_dashboard, menu);
         return true;
     }
 
@@ -129,7 +135,8 @@ private  ImageView adminImage;
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-
+FirebaseAuth.getInstance().signOut();
+            finish();
 
             return true;
         }

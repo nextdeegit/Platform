@@ -384,6 +384,7 @@
             </RelativeLayout>
 
             <Button
+
                 android:id="@+id/submit"
                 android:layout_margin="7dp"
                 android:textColor="#fff"

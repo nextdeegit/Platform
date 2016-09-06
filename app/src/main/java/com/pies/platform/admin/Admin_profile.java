@@ -94,6 +94,7 @@ private  ProgressDialog progressDialog;
     private static final int RC_CAMERA_PERMISSIONS = 102;
     FirebaseUser currentUser ;
     private TextView email, name;
+    CollapsingToolbarLayout collapsingToolbarLayout;
 
     private static final String[] cameraPerms = new String[]{
             android.Manifest.permission.READ_EXTERNAL_STORAGE
@@ -108,8 +109,8 @@ private ProgressBar progressBar;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
-        collapsingToolbarLayout.setTitle(title);
+         collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         progressBar = (ProgressBar) findViewById(R.id.progress);
@@ -639,6 +640,7 @@ mDatabase = FirebaseDatabase.getInstance().getReference();
                 if(item.getEmail() != null){
                     title = item.getName();
                     email.setText(item.getEmail().toString());
+                    collapsingToolbarLayout.setTitle(title);
                 }
 
             }

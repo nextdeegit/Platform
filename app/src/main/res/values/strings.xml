@@ -5,6 +5,7 @@
     <string name="title_activity_teachers__dashboard">Teacher Dashboard</string>
     <string name="title_activity_admin_dashboard">Admin</string>
     <string name="title_activity_create__account">Create Account</string>
+    <string name="banner_ad_unit_id">ca-app-pub-7849997962870392/4448261466</string>
     <string-array name="users">
         <item>Choose UserType</item>
         <item>Manager</item>
@@ -62,5 +63,7 @@
     <string name="title_activity_feedbackdetails">Details</string>
     <string name="title_activity_splash">PlatForm</string>
     <string name="title_activity_assign_home">AssignHome</string>
+    <string name="title_activity_notification">Notification</string>
+    <string name="title_activity_create__obj">Create</string>
 
 </resources>

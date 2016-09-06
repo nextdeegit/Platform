@@ -99,7 +99,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleApiClient client;
     Location location;
     Criteria criteria;
-    double lat, longt;
+    double lat = 0;
+    double longt = 0;
     AlertDialog alert;
 
 
@@ -144,9 +145,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 String address = hAddress.getText().toString();
                 String phone = hPhone.getText().toString();
 
-                if (lat == 0 || longt == 0 || name.isEmpty() || address.isEmpty() || phone.isEmpty()) {
+                Toast.makeText(MapsActivity.this, lat + " " + longt, Toast.LENGTH_SHORT).show();
+                if (lat == 0 || longt == 0 ) {
                     Toast.makeText(MapsActivity.this, "Current location not gotten..Enable GPS", Toast.LENGTH_SHORT).show();
-                } else {
+                }
+                else if( name.isEmpty() || address.isEmpty() || phone.isEmpty()){
+                    Toast.makeText(MapsActivity.this, "Incomplete information", Toast.LENGTH_SHORT).show();
+
+                }  else{
                     createHome(lat, longt, name, address, phone);
                 }
 
@@ -206,7 +212,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+       // client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
 

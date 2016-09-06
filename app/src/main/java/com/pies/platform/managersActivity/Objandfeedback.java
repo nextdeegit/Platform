@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Objandfeedback extends AppCompatActivity  implements TabLayout.OnTabSelectedListener{
-   public static String name;
+   public static String name ="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,7 +42,10 @@ public class Objandfeedback extends AppCompatActivity  implements TabLayout.OnTa
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Bundle extras = getIntent().getExtras();
-         name = extras.getString("teachername");
+        if(extras != null){
+            name = extras.getString("teachername");
+        }
+
         // Setting ViewPager for each Tabs
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager1);
         setupViewPager(viewPager,name);

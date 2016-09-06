@@ -2,7 +2,7 @@
 <ScrollView android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:fillViewport="true"
-    android:background="#FFF0DFEA"
+    android:background="#eeeeee"
     xmlns:android="http://schemas.android.com/apk/res/android" >
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -23,5 +23,15 @@
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        />
+
+   <android.support.v7.widget.RecyclerView
+       android:layout_marginTop="20dp"
+       android:id="@+id/recycler_comments"
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       android:layout_below="@+id/layer1"
+       android:layout_marginBottom="150dp"
+       tools:listitem="@layout/item_comment" />
 </RelativeLayout>
+
 </ScrollView>

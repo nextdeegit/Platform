@@ -19,6 +19,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -31,6 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.pies.platform.Login;
+import com.pies.platform.Notification;
 import com.pies.platform.R;
 import com.pies.platform.admin.model.AdminAdapter;
 import com.pies.platform.admin.model.Admin_Item;
@@ -80,6 +83,10 @@ public class Admin_dashboardFragment extends Fragment {
         tName = (TextView) root.findViewById(R.id.admin_name);
         tEmail = (TextView) root.findViewById(R.id.admin_email);
 
+
+        AdView mAdView = (AdView) root.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -153,6 +160,9 @@ public class Admin_dashboardFragment extends Fragment {
                 else if(position == 2){
                     startActivity(new Intent(getActivity(), MapsActivity.class));
                 }
+                else  if(position ==3){
+                    startActivity(new Intent(getActivity(), Notification.class));
+                }
                 //Toast.makeText(getApplicationContext(), movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
             }
 
@@ -175,6 +185,8 @@ prepareMovieData();
         movieList.add(manager);
 
         manager = new Admin_Item("New Home","", "registration of new homes", getResources().getDrawable(R.drawable.home_icon));
+        movieList.add(manager);
+        manager = new Admin_Item("Push Notification","", "Send notification messages to all users", getResources().getDrawable(R.drawable.ic_message_black_24dp));
         movieList.add(manager);
 
         mAdapter.notifyDataSetChanged();
