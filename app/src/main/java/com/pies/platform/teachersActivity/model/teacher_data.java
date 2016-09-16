@@ -19,6 +19,7 @@ public class teacher_data {
   public  String home1 ="";
     public String home2 = "";
     public String home3 ="";
+    public String home4 = "";
 
     public teacher_data(){
 
@@ -123,7 +124,7 @@ public class teacher_data {
         this.name = name;
     }
 
-    String home4;
+
 
 
     // [START post_to_map]

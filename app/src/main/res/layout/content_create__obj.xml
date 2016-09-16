@@ -11,42 +11,44 @@
     tools:showIn="@layout/activity_create__obj">
     <EditText
         android:id="@+id/subject"
-        android:layout_margin="10dp"
+        android:layout_margin="15dp"
         android:background="#fff"
-        android:textSize="24sp"
+        android:textSize="15sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Subject"/>
+    <requestFocus/>
     <View
-        android:background="#eeeeee"
+        android:background="@color/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         />
     <EditText
-        android:layout_margin="10dp"
+        android:layout_margin="15dp"
         android:background="#fff"
-        android:textSize="24sp"
+        android:textSize="15sp"
         android:id="@+id/topic"
         android:textStyle="bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Topic"/>
     <View
-        android:background="#eeeeee"
+        android:background="@color/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         />
     <EditText
         android:id="@+id/obj"
         android:maxLines="2"
-        android:textSize="23sp"
+        android:textSize="15sp"
         android:background="#fff"
-        android:layout_margin="10dp"
+        android:layout_margin="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingBottom="250dp"
         android:hint="Objectives"/>
     <View
-        android:background="#eeeeee"
+        android:background="@color/divider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         />

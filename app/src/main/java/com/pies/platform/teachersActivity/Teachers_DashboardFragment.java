@@ -110,7 +110,12 @@ public class Teachers_DashboardFragment extends Fragment {
                     // myRootref.child("all-users").setValue("meeeeeee");
                 }
                 else if(position == 0){
-                startActivity(new Intent(getActivity(), Create_Obj.class));
+                    Intent intent = new Intent(getActivity(), MyHome.class);
+                    intent.putExtra("home1", home1);
+                    intent.putExtra("home2", home2);
+                    intent.putExtra("home3", home3);
+                    intent.putExtra("name", name);
+                    startActivity(intent);
                 }
                 //Toast.makeText(getApplicationContext(), movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
             }

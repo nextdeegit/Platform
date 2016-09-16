@@ -11,6 +11,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -22,17 +24,28 @@ import com.pies.platform.R;
 import com.pies.platform.teachersActivity.model.Feedback_item;
 import com.pies.platform.teachersActivity.model.ObjItem;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Create_Obj extends AppCompatActivity {
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    EditText subject,topic,objectives;
+    String key,name;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create__obj);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        subject = (EditText) findViewById(R.id.subject);
+        topic = (EditText) findViewById(R.id.topic);
+        objectives = (EditText) findViewById(R.id.obj);
+
+     key = getIntent().getStringExtra("home_name");
+        name = getIntent().getStringExtra("teacher_name");
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -60,16 +73,33 @@ public class Create_Obj extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-       /* if (id == R.id.signout) {
+        if (id == R.id.save) {
+            String sub = subject.getText().toString();
+            String tPic = topic.getText().toString();
+            String obj = objectives.getText().toString();
+            long msTime = System.currentTimeMillis();
+            Date date = new Date(msTime);
+            SimpleDateFormat sdf = new SimpleDateFormat(" MMMM d, y");
+            SimpleDateFormat sdf1 = new SimpleDateFormat("hh:mm a ");
+            SimpleDateFormat sdf2 = new SimpleDateFormat("EEEE ");
+            String day = sdf2.format(date);
+            String time =sdf1.format(date);
+            String formattedDate = sdf.format(date);
+
+            if(sub.isEmpty() || tPic.isEmpty() || obj.isEmpty()){
+                Toast.makeText(Create_Obj.this, "Please complete the form!!", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                createObj(key,sub,tPic,obj,name,time,formattedDate,day);
+            }
 
 
             return true;
         }
-*/
         return super.onOptionsItemSelected(item);
     }
     // [START write_fan_out]
-    private void createObj(String subject, String topic,String objectives, String author,String sent_time, String date, String day) {
+    private void createObj(String home,String subject, String topic,String objectives, String author,String sent_time, String date, String day) {
 
         // Create new post at /user-posts/$userid/$postid and at
         // /posts/$postid simultaneously
@@ -78,10 +108,9 @@ public class Create_Obj extends AppCompatActivity {
         Map<String, Object> postValues = obj.toObj();
 
         Map<String, Object> childUpdates = new HashMap<>();
-        //childUpdates.put("/all-Objectives/" + homekey  + "/" + key, postValues);
-       /* childUpdates.put("/Teachers-Profile/" + uid + "/" + key, postValues);
-        childUpdates.put("/auth-user/" + uid, postValues);
-        childUpdates.put("/all-user/" + key, postValues);*/
+        childUpdates.put("/all-Objectives/" + home  + "/" + key, postValues);
+
+       // childUpdates.put("/all-Objectivesr/" + home, postValues);
         mDatabase.updateChildren(childUpdates).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {

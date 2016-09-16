@@ -55,10 +55,10 @@ public class Works_Detail extends AppCompatActivity {
 private String teacherkey;
     private DatabaseReference mPostReference;
     private ValueEventListener mPostListener;
-    private TextView hom1,hom2,hom3;
+    private TextView hom1,hom2,hom3,hom4;
     private String name,home_key1, home_key2,home_key3;
     CollapsingToolbarLayout collapsingToolbarLayout;
-    private ImageButton add1,add2,add3;
+    private ImageButton add1,add2,add3,add4;
     static SpinnerContext spinnerContext;
     private DatabaseReference mDatabase;
     ArrayList<String> homeData = new ArrayList<String>();
@@ -99,6 +99,7 @@ private String teacherkey;
 
        collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
         collapsingToolbarLayout.setTitle("");
+       getSupportActionBar().setTitle("");
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -156,6 +157,7 @@ private String teacherkey;
         add1 = (ImageButton) findViewById(R.id.add_button1);
         add2 = (ImageButton) findViewById(R.id.add_button2);
         add3 = (ImageButton) findViewById(R.id.add_button3);
+        add4 = (ImageButton) findViewById(R.id.add_button4);
 
 
 
@@ -204,9 +206,24 @@ private String teacherkey;
 
             }
         });
+        add4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatabaseReference databaseReference = mDatabase.child("Teachers-Profile").child(uidU).child(teacherkey);
+
+                if(homeSelected.isEmpty() || homeSelected.equals("Select Home")){
+                    Toast.makeText(Works_Detail.this, "Home not Selected", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    onButton4Clicked(databaseReference,homeSelected);
+                }
+
+            }
+        });
         hom1 = (TextView) findViewById(R.id.home1);
         hom2 = (TextView) findViewById(R.id.home2);
         hom3 = (TextView) findViewById(R.id.home3);
+        hom4 = (TextView) findViewById(R.id.home4);
 
 
 
@@ -406,7 +423,40 @@ updateList();
         // Keep copy of post listener so we can remove it when app stops
         mPostListener = postListener;
     }
+    public void getHomeNm4(){
+        // Toast.makeText(Works_Detail.this, teacherkey +"" + teacher_uid, Toast.LENGTH_SHORT).show();
 
+        mPostReference = FirebaseDatabase.getInstance().getReference()
+                .child("Teachers-Profile").child(userId).child(teacherkey);
+        // [START post_value_event_listener]
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Get Post object and use the values to update the UI
+
+                teacher_data teacher = dataSnapshot.getValue(teacher_data.class);
+
+                if(teacher.home4 != null){
+                    hom4.setText("Home 4 : " +  teacher.home4);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+                // [START_EXCLUDE]
+                Toast.makeText(Works_Detail.this, "Failed to load post.",
+                        Toast.LENGTH_SHORT).show();
+                // [END_EXCLUDE]
+            }
+        };
+        mPostReference.addValueEventListener(postListener);
+        // [END post_value_event_listener]
+
+        // Keep copy of post listener so we can remove it when app stops
+        mPostListener = postListener;
+    }
     private  void updateList(){
 
         Query queryRef = getQuery(mDatabase);
@@ -518,7 +568,7 @@ updateList();
                                    DataSnapshot dataSnapshot) {
                 // Transaction completed
                // Log.d(TAG, "postTransaction:onComplete:" + databaseError);
-                Toast.makeText(Works_Detail.this, dataSnapshot.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Works_Detail.this,"added", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -557,7 +607,7 @@ updateList();
                                    DataSnapshot dataSnapshot) {
                 // Transaction completed
                 // Log.d(TAG, "postTransaction:onComplete:" + databaseError);
-                Toast.makeText(Works_Detail.this, dataSnapshot.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Works_Detail.this, "added", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -587,11 +637,40 @@ updateList();
                                    DataSnapshot dataSnapshot) {
                 // Transaction completed
                 // Log.d(TAG, "postTransaction:onComplete:" + databaseError);
-                Toast.makeText(Works_Detail.this, dataSnapshot.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(Works_Detail.this, "added", Toast.LENGTH_SHORT).show();
             }
         });
     }
+    // [START post_stars_transaction]
+    private void onButton4Clicked(DatabaseReference postRef, final String selected_home) {
+        postRef.runTransaction(new Transaction.Handler() {
+            @Override
+            public Transaction.Result doTransaction(MutableData mutableData) {
+                teacher_data p = mutableData.getValue(teacher_data.class);
+                if (p == null) {
+                    return Transaction.success(mutableData);
+                }
+                if(p.home4.contentEquals("")){
+                    p.home4 = p.home4 + selected_home;
+                }
+                else{
+                    p.home4 = selected_home;
+                }
 
+
+                mutableData.setValue(p);
+                return Transaction.success(mutableData);
+            }
+
+            @Override
+            public void onComplete(DatabaseError databaseError, boolean b,
+                                   DataSnapshot dataSnapshot) {
+                // Transaction completed
+                // Log.d(TAG, "postTransaction:onComplete:" + databaseError);
+                Toast.makeText(Works_Detail.this, "added", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
     public void getT(DatabaseReference databaseReference){
 
         // [START post_value_event_listener]

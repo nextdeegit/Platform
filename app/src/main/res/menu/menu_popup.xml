@@ -4,6 +4,7 @@
         android:id="@+id/obj"
         android:title="Objective" />
     <item
-        android:id="@+id/feedback"
-        android:title="Feedback" />
+        android:id="@+id/fback"
+        android:title="Feed back" />
+
 </menu>

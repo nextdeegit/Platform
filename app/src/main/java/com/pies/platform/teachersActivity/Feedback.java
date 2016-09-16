@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Feedback extends AppCompatActivity {
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    private DatabaseReference mDatabase;
     String fb1 = "Was the tutor in class?";
     String fb2 = "Does the student understand the principle ?";
     String fb3 = "Can the student tackle the questions by themselves ?";
@@ -65,7 +65,7 @@ public class Feedback extends AppCompatActivity {
         setContentView(R.layout.activity_feedback);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

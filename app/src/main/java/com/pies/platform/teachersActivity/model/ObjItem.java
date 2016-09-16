@@ -14,23 +14,11 @@ public class ObjItem {
     public String objective;
     public String sent_time;
     public String author;
-
-    public String getDay() {
-        return day;
-    }
-
-    public void setDay(String day) {
-        this.day = day;
-    }
-
     public String day;
 
-    public String getDate() {
-        return date;
-    }
 
-    public void setDate(String date) {
-        this.date = date;
+    public ObjItem(){
+        
     }
 
     public  String date;
@@ -44,6 +32,25 @@ public class ObjItem {
         this.date = date;
         this.day = day;
     }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
+    }
+
+
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
 
     public String getSubject() {
         return subject;

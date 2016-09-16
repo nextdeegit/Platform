@@ -14,7 +14,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.PopupMenu;
+
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -61,7 +62,7 @@ public class Teachers extends AppCompatActivity {
     ListView list;
 
     Bundle bundle;
-   
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -106,8 +107,11 @@ public class Teachers extends AppCompatActivity {
 
         mSwipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.activity_main_swipe_refresh_layout);
         new updater().execute();
+       // FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         // [START create_database_reference]
+
         mDatabase = FirebaseDatabase.getInstance().getReference();
+
         // [END create_database_reference]
       //  pd = (ProgressBar) root.findViewById(R.id.progress);
         mRecycler = (RecyclerView) findViewById(R.id.teacher_list1);
@@ -143,6 +147,7 @@ public class Teachers extends AppCompatActivity {
     public void updateList(){
         mSwipeRefreshLayout.setRefreshing(true);
         // Set up FirebaseRecyclerAdapter with the Query
+
         Query postsQuery = getQuery(mDatabase);
         mAdapter = new FirebaseRecyclerAdapter<Add_Home_item,ManagerHomeList>(Add_Home_item.class, R.layout.teachers_list,
                 ManagerHomeList.class, postsQuery) {
@@ -153,7 +158,7 @@ public class Teachers extends AppCompatActivity {
                 // Set click listener for the whole post view
               //  postKey = postRef.getKey();
 
-               /* viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+                viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         // Launch PostDetailActivity
@@ -163,24 +168,22 @@ public class Teachers extends AppCompatActivity {
                         bundle.putString("teachername", model.getName());
                       // frag.setArguments(bundle);
 
-                      *//*  Intent intent = new Intent(getApplicationContext(), Objandfeedback.class);
+                        Intent intent = new Intent(getApplicationContext(), Objandfeedback.class);
                         intent.putExtras(bundle);
                        // intent.putExtra("uid", userId);
 
-                        startActivity(intent);*//*
+                        startActivity(intent);
+
 
                      //   Toast.makeText(Teachers.this, model.getName(), Toast.LENGTH_SHORT).show();
                     }
-                });*/
+                });
                 try {
 
                 viewHolder.bindToPost(model, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                    PopupMenu pop_up = new PopupMenu(getBaseContext(), v);
 
-                        pop_up.getMenuInflater().inflate(R.menu.menu_popup, pop_up.getMenu());
-                        pop_up.show();
 
                     }
                 });
@@ -195,30 +198,7 @@ public class Teachers extends AppCompatActivity {
 
     }
 
-    public void  pop(View v){
-        PopupMenu pop_up = new PopupMenu(getApplicationContext(), v);
 
-        pop_up.getMenuInflater().inflate(R.menu.menu_popup, pop_up.getMenu());
-        pop_up.show();
-        pop_up.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                int i = item.getItemId();
-                if (i == R.id.obj) {
-                    //do something
-                    startActivity(new Intent(getApplicationContext(), Create_Obj.class));
-                    return true;
-                } else if (i == R.id.feedback) {
-                    //do something
-                    startActivity(new Intent(getApplicationContext(), Create_Obj.class));
-                }
-                return onMenuItemClick(item);
-
-            }
-        });
-
-
-    }
     public Query getQuery(DatabaseReference databaseReference) {
         // [START recent_posts_query]
         // Last 100 posts, these are automatically the 100 most recent
@@ -228,7 +208,7 @@ public class Teachers extends AppCompatActivity {
         ;
         return databaseReference.child("Homes-Added");
     }
-    private  void updateHome(String uid){
+  /*  private  void updateHome(String uid){
         dialog.show();
         progressBar.setVisibility(View.VISIBLE);
         Query queryRef = getQuery(mDatabase);
@@ -240,11 +220,11 @@ public class Teachers extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // Get Post object and use the values to update the UI
-               /* if(dataSnapshot != null){
+               *//* if(dataSnapshot != null){
                     String h = dataSnapshot.child("name").getValue().toString();
                     //Add_Home_item item = dataSnapshot.child("name").getValue(Add_Home_item.class);
                     homeData.add(h);
-                }*/
+                }*//*
                    // String h = dataSnapshot.child("name").getValue().toString();
                     //Toast.makeText(Works_Detail.this, h, Toast.LENGTH_SHORT).show();
 
@@ -281,7 +261,7 @@ public class Teachers extends AppCompatActivity {
 
 
 
-       /* mPostReference.addChildEventListener(new ChildEventListener() {
+       *//* mPostReference.addChildEventListener(new ChildEventListener() {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 adapter1.add((String)dataSnapshot.child("name").getValue());
             }
@@ -299,13 +279,13 @@ public class Teachers extends AppCompatActivity {
             public void onCancelled(FirebaseError firebaseError) { }
         });
 
-*/
+*//*
 
 
 
 
 
-    }
+    }*/
     private class updater extends AsyncTask<Void, Void, Void> {
 
 

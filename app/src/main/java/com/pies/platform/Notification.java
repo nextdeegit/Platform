@@ -32,6 +32,7 @@ public class Notification extends AppCompatActivity {
     ProgressDialog progressDialog;
     EditText mtitle, eMessage;
     Button send;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

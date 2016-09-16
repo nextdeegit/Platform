@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
@@ -53,12 +54,16 @@ public class Home extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
+        CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) findViewById(R.id.toolbar_layout);
+        collapsingToolbarLayout.setTitle("");
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
         // [START initialize_auth]
         mAuth = FirebaseAuth.getInstance();
         // [START auth_state_listener]
 
 
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
+       /* mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 mFirebaseUser = firebaseAuth.getCurrentUser();
@@ -73,7 +78,7 @@ public class Home extends AppCompatActivity {
 
                     startActivity(new Intent(getApplicationContext(), Login.class));
                 }
-            }};
+            }};*/
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +109,10 @@ public class Home extends AppCompatActivity {
                 else if(position == 1){
 
                 }
-                else if (position== 2){
+                else if(position == 2){
+                    startActivity(new Intent(getApplicationContext(),Teacher_Request.class));
+                }
+                else if (position== 4){
                     AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
                     builder.setMessage("You can contact us via this email address  aniekanpaul@gmail.com"  )
                             .setTitle("Contact")
@@ -138,6 +146,12 @@ new Ui().execute();
         manager = new Admin_Item("News Feeds","Coming Soon", " Get Lastest News Update", getResources().getDrawable(R.drawable.fd));
         movieList.add(manager);
 
+        manager = new Admin_Item("Teacher Request ","", "Request for a teacher ", getResources().getDrawable(R.drawable.request));
+        movieList.add(manager);
+
+        manager = new Admin_Item("Submit Application","", "Eligible teacher should submit their application", getResources().getDrawable(R.drawable.apl));
+        movieList.add(manager);
+
         manager = new Admin_Item("Contact Us","", "Send us your Suggestions and Questions ", getResources().getDrawable(R.drawable.c));
         movieList.add(manager);
 
@@ -163,6 +177,7 @@ new Ui().execute();
         if (id == R.id.signout) {
 
             FirebaseAuth.getInstance().signOut();
+startActivity(new Intent(getApplicationContext(),Login.class));
             finish();
         return true;
         }
@@ -173,7 +188,7 @@ new Ui().execute();
     @Override
     public void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(mAuthListener);
+
         if(!isNetworkAvailable()){
             AlertDialog.Builder builder = new AlertDialog.Builder(Home.this);
             builder.setMessage("Failure to connect to the internet, please check your network connection")
@@ -195,9 +210,7 @@ new Ui().execute();
     @Override
     public void onStop() {
         super.onStop();
-        if (mAuthListener != null) {
-            mAuth.removeAuthStateListener(mAuthListener);
-        }
+
     }
     public boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager

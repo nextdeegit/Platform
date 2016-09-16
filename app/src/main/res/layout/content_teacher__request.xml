@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="#eeeeee"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.pies.platform.Teacher_Request"
+    tools:showIn="@layout/activity_teacher__request">
+    <RelativeLayout
+        android:layout_marginBottom="40dp"
+        android:layout_marginTop="50dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <android.support.v7.widget.CardView
+            android:layout_margin="10dp"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp">
+
+
+                <!-- Name Label -->
+
+                <EditText android:id="@+id/input_request_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textCapWords"
+                    android:padding="17dp"
+                    android:layout_marginTop="14dp"
+                    android:background="@drawable/edit_two"
+                    android:hint="Name"
+                    android:layout_marginBottom="7dp"/>
+
+
+
+                <EditText android:id="@+id/input_request_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="17dp"
+                    android:background="@drawable/edit_two"
+                    android:inputType="textEmailAddress"
+                    android:layout_marginBottom="7dp"
+                    android:hint="Email" />
+
+
+
+                <EditText android:id="@+id/input_request_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="17dp"
+                    android:layout_marginBottom="7dp"
+                    android:background="@drawable/edit_two"
+
+
+                    android:hint="Phone"/>
+                <EditText android:id="@+id/input_request_City"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="17dp"
+                    android:layout_marginBottom="7dp"
+                    android:background="@drawable/edit_two"
+
+                    android:hint="City"/>
+                <EditText android:id="@+id/input_request_Subjects"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="17dp"
+                    android:background="@drawable/edit_two"
+
+
+                    android:layout_marginBottom="7dp"
+                    android:hint="Subjects"/>
+                <EditText android:id="@+id/input_request_Comment"
+                    android:layout_marginBottom="7dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                  android:paddingLeft="17dp"
+                    android:paddingRight="17dp"
+                    android:paddingTop="17dp"
+                    android:paddingBottom="60dp"
+                    android:background="@drawable/edit_two"
+
+                    android:hint="Comment"/>
+               <!-- <Spinner
+                    android:layout_marginTop="7dp"
+                    android:id="@+id/spinner1"
+                    android:layout_marginBottom="5dp"
+                    android:layout_width="match_parent"
+                    android:background="@drawable/edit_two"
+                    android:layout_height="50dp" />-->
+
+                <!-- Signup Button -->
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/request"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="37dp"
+                    android:padding="12dp"
+                    android:textStyle="bold"
+                    android:textColor="#fff"
+
+                    android:background="#009688"
+                    android:text="Request"/>
+
+
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+</RelativeLayout>
+</ScrollView>

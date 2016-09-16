@@ -1,6 +1,7 @@
 package com.pies.platform.teachersActivity;
 
 import android.Manifest;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -18,11 +20,15 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
+import android.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+
 import android.widget.ProgressBar;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -42,11 +48,7 @@ import com.pies.platform.Verification;
 import com.pies.platform.Works_Detail;
 import com.pies.platform.admin.Admin_dashboard;
 import com.pies.platform.admin.model.Add_Home_item;
-import com.pies.platform.admin.model.Admin_Item;
-import com.pies.platform.teachersActivity.model.Teacher_Adapter;
-import com.pies.platform.teachersActivity.model.Teacher_assign_homes;
-import com.pies.platform.teachersActivity.model.teacher_data;
-import com.pies.platform.viewHolder.TeacherListViewHolder;
+
 import com.pies.platform.viewHolder.Teacher_Assigned_Home;
 
 import java.util.ArrayList;
@@ -184,15 +186,46 @@ public class MyHome extends AppCompatActivity {
 //        Add_Home_item item = movieList.get(position);
 
         mRecycler.addOnItemTouchListener(new Admin_dashboard.RecyclerTouchListener(getApplicationContext(), mRecycler, new Admin_dashboard.ClickListener() {
+            @TargetApi(Build.VERSION_CODES.KITKAT)
             @Override
-            public void onClick(View view, int position) {
+            public void onClick(View view, final int position) {
 
-                Add_Home_item item = movieList.get(position);
-                Intent intent = new Intent(getApplicationContext(),Feedback.class);
-                intent.putExtra("home_name", item.getName());
-                intent.putExtra("teacher_name",name);
-                startActivity(intent);
-                //Toast.makeText(getApplicationContext(), movie.getTitle() + " is selected!", Toast.LENGTH_SHORT).show();
+
+
+                PopupMenu pop_up = new PopupMenu(getApplicationContext(), view,R.style.AppTheme);
+
+                pop_up.getMenuInflater().inflate(R.menu.menu_popup, pop_up.getMenu());
+
+                pop_up.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Add_Home_item item_home = movieList.get(position);
+                     switch (item.getItemId()){
+
+                            case R.id.obj:
+                            //do something
+                            Intent intent = new Intent(getApplicationContext(),Create_Obj.class);
+                            intent.putExtra("home_name", item_home.getName());
+                            intent.putExtra("teacher_name",name);
+                            startActivity(intent);
+                            return true;
+                            case R.id.fback:
+                            //do something
+                            Intent intent1 = new Intent(getApplicationContext(), Feedback.class);
+                            intent1.putExtra("home_name", item_home.getName());
+                            intent1.putExtra("teacher_name",name);
+                            startActivity(intent1);
+                                return  true;
+                            default:
+                                return true;
+                        }
+
+
+
+                    }
+                });
+                pop_up.show();
             }
 
             @Override

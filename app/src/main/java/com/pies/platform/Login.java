@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -116,8 +117,16 @@ public class Login extends AppCompatActivity {
 
 
                                     //}
-                                    startService(new Intent(getBaseContext(), NotificationService.class));
-                                    Intent intent = new Intent(getApplicationContext(), Home.class);
+                                    SharedPreferences pref = getSharedPreferences("ActivityPREF", Context.MODE_PRIVATE);
+                                    if(pref.getBoolean("activity_executed", false)){
+                                        startService(new Intent(getBaseContext(), NotificationService.class));
+                                    } else {
+                                        SharedPreferences.Editor ed = pref.edit();
+                                        ed.putBoolean("activity_executed", true);
+                                        ed.apply();
+                                    }
+
+                                    Intent intent = new Intent(getApplicationContext(), Verification.class);
                                     startActivity(intent);
 
                                     finish();

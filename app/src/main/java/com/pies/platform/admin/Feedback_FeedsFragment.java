@@ -213,11 +213,7 @@ public class Feedback_FeedsFragment extends Fragment {
 
 
                 mRecycler.setAdapter(mAdapter);
-if(FeedbackListViewholder.Category_ID.size() == 0){
-    //status.setVisibility(View.VISIBLE);
-}else{
-    //status.setVisibility(View.INVISIBLE);
-}
+
 
 
 

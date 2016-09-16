@@ -22,7 +22,7 @@
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/thumdicon1"
             android:id="@+id/titleName1"
-            android:textSize="24sp"
+            android:textSize="21sp"
 
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
             android:background="@drawable/alert_background"
             android:textColor="@color/colorAccent"
             android:id="@+id/number1"
-            android:textSize="13dp"
+            android:textSize="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Coming Soon"
@@ -45,7 +45,7 @@
             android:layout_toRightOf="@+id/thumdicon1"
             android:id="@+id/description1"
             android:layout_below="@+id/titleName1"
-            android:textSize="15sp"
+            android:textSize="12sp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Register a new teacher using their credential"/>
